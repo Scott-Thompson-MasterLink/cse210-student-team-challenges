@@ -30,7 +30,8 @@ class ZeldaGame(arcade.Window):
         self.room = Room("cse210-student-team-challenges/final-project/images/room1.png")
         self.physics_engine = None
         self._enemy = Enemy("cse210-student-team-challenges/final-project/images/monster1.png", SPRITE_SCALING)
-        self._enemy2 = Enemy("cse210-student-team-challenges/final-project/images/monster1.png", SPRITE_SCALING)
+        self._enemy2 = Enemy("cse210-student-team-challenges/final-project/images/monster3.png", SPRITE_SCALING)
+        
         self.player = Player()
         self.health = 99
 
