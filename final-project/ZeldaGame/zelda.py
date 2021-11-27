@@ -16,7 +16,7 @@ SCREEN_TITLE = "The remixed Legend of Zelda"
 
 
 class ZeldaGame(arcade.Window):
-
+    
     def __init__(self, width, height, title):
         """Initialize the game
         """
@@ -24,10 +24,10 @@ class ZeldaGame(arcade.Window):
         super().__init__(width, height, title)
 
         self.enemies_list = arcade.SpriteList()
-        self.rooms_list = arcade.SpriteList()
+        self.rooms_list = []
+        self.current_room = 0
         self.missile_list = arcade.SpriteList()
         self.all_sprites = arcade.SpriteList()
-        self.room = Room("cse210-student-team-challenges/final-project/images/room1.png")
         self.physics_engine = None
         self._enemy = Enemy("cse210-student-team-challenges/final-project/images/monster1.png", SPRITE_SCALING)
         self._enemy2 = Enemy("cse210-student-team-challenges/final-project/images/monster3.png", SPRITE_SCALING)
@@ -49,6 +49,12 @@ class ZeldaGame(arcade.Window):
         self.all_sprites.append(self.player)
         self.paused = False
 
+        self.room1 = Room("cse210-student-team-challenges/final-project/images/room1.png")
+        self.room2 = Room("cse210-student-team-challenges/final-project/images/room2.png")
+
+        self.rooms_list.append(self.room1)
+        self.rooms_list.append(self.room2)
+
         self.player_direction = 'right'
         self.shoot_direction = 'right'
         
@@ -59,22 +65,17 @@ class ZeldaGame(arcade.Window):
         for box in boxes_room1:
             self.box_room1 = Obstacle('cse210-student-team-challenges/final-project/images/metal_box.png', SPRITE_SCALING)
             self.box_room1.position_obstacle(box[0], box[1])
-            self.room.add_sprite(self.box_room1)
+            self.room1.add_sprite(self.box_room1)
 
         for box in blue_boxes:
             self.blue_box = Obstacle('cse210-student-team-challenges/final-project/images/bluebox.png', SPRITE_SCALING)
             self.blue_box.position_obstacle(box[0], box[1])
-            self.room.add_sprite(self.blue_box)
-
-        for box in blue_boxes_right:
-            self.blue_box_right = Obstacle('cse210-student-team-challenges/final-project/images/bluebox.png', SPRITE_SCALING)
-            self.blue_box_right.position_obstacle(box[0], box[1])
-            self.room.add_wall_to_remove(self.blue_box_right)  
-
+            self.room1.add_sprite(self.blue_box)
 
         # Create a physics engine for this room
         self.physics_engine = arcade.PhysicsEngineSimple(self.player,
-                                                         self.room.sprite_list)
+                                                         self.rooms_list[self.current_room].sprite_list)
+        # self.rooms_list[self.current_room].wall_to_remove.visible = False
 
 # ########## Load background music
 # ########## Sound source: http://ccmixter.org/files/Apoxode/59262
@@ -229,13 +230,25 @@ class ZeldaGame(arcade.Window):
     def on_update(self, delta_time: float):
         """Update all game objects
         """
-        self.player.update()
         if self.paused:
             return
 
+        self.player.update()
+
+        if self.player.center_x > SCREEN_WIDTH and self.current_room == 0:
+            self.current_room = 1
+            self.physics_engine = arcade.PhysicsEngineSimple(self.player,
+                                                                self.rooms_list[self.current_room].sprite_list)
+            self.player.center_x = 0
+
+        elif self.player.center_x < 0 and self.current_room == 1:
+            self.current_room = 0
+            self.physics_engine = arcade.PhysicsEngineSimple(self.player,
+                                                                self.rooms_list[self.current_room].sprite_list)
+            self.player.center_x = SCREEN_WIDTH
+
         # This line of code prevents player to go through the obstaclees
         self.physics_engine.update()
-
 
         self._enemy.update(5, 70)
         self._enemy2.update(5, 70)
@@ -256,6 +269,11 @@ class ZeldaGame(arcade.Window):
             collisions = enemy.collides_with_list(self.missile_list)
             if collisions:
                 self.collision_sound.play()
+
+
+                self.room1.list_of_enemies.append(enemy)
+                enemy.remove_from_sprite_lists()
+
                 for missile in collisions:
                     missile.remove_from_sprite_lists()  
                     enemy.health -=1          
@@ -264,7 +282,7 @@ class ZeldaGame(arcade.Window):
                     enemy.remove_from_sprite_lists()
         
         # This removes all the right boxes if the count of enemies died are 2 (just for room1)
-        self.room.remove_walls(2)
+        self.room1.remove_walls(2)
 
         # Update everything
         for sprite in self.all_sprites:
@@ -278,14 +296,7 @@ class ZeldaGame(arcade.Window):
         if self.player.top > self.height:
             self.player.top = self.height
         elif self.player.bottom < 0:
-            self.player.bottom = 0
-        
-        if self.player.left < 0:
-            self.player.left = 0
-        elif self.player.right > self.width:
-            self.player.right = self.width
-
-        
+            self.player.bottom = 0   
     
     def on_draw(self):
         """Draw all game objects
@@ -293,11 +304,12 @@ class ZeldaGame(arcade.Window):
         arcade.start_render()
         arcade.draw_lrwh_rectangle_textured(0, 0,
                                             SCREEN_WIDTH, SCREEN_HEIGHT,
-                                            self.room.background)
+                                             self.rooms_list[self.current_room].background)
         # Draw all the walls in this room
-        self.room.sprite_list.draw()
-        self.room.wall_to_remove.draw()
+
+        self.rooms_list[self.current_room].sprite_list.draw()
         arcade.draw_text(f"Health: {self.health + 1}", 2, 10, arcade.color.RED, 12)
+
 
         self.all_sprites.draw()
         self.player.draw()
