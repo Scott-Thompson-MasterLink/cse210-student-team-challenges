@@ -267,11 +267,11 @@ class ZeldaGame(arcade.Window):
 
             if collisions:
                 enemy.set_health(-1)
-
                 self.collision_sound.play()
 
                 for missile in collisions:
                     missile.remove_from_sprite_lists()  
+
                 if enemy.health <= 0:
                     self.room1.list_of_enemies.append(enemy)
                     enemy.remove_from_sprite_lists()
