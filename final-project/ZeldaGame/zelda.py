@@ -62,20 +62,17 @@ class ZeldaGame(arcade.Window):
         # Spawn a new enemy in 0 seconds
         arcade.schedule(self.add_enemy, 0)
 
-        for box in boxes_room1:
-            self.box_room1 = Obstacle('cse210-student-team-challenges/final-project/images/metal_box.png', SPRITE_SCALING)
-            self.box_room1.position_obstacle(box[0], box[1])
-            self.room1.add_sprite(self.box_room1)
+        # Stablish the path of the boxes
+        path_metal_boxes = 'cse210-student-team-challenges/final-project/images/metal_box.png'
+        path_blue_boxes = 'cse210-student-team-challenges/final-project/images/bluebox.png'
 
-        for box in blue_boxes:
-            self.blue_box = Obstacle('cse210-student-team-challenges/final-project/images/bluebox.png', SPRITE_SCALING)
-            self.blue_box.position_obstacle(box[0], box[1])
-            self.room1.add_sprite(self.blue_box)
+        # Add the boxes to the current room
+        self.rooms_list[self.current_room].add_multiple_sprites(path_blue_boxes, blue_boxes)
+        self.rooms_list[self.current_room].add_multiple_sprites(path_metal_boxes, metal_boxes)
 
         # Create a physics engine for this room
         self.physics_engine = arcade.PhysicsEngineSimple(self.player,
                                                          self.rooms_list[self.current_room].sprite_list)
-        # self.rooms_list[self.current_room].wall_to_remove.visible = False
 
 # ########## Load background music
 # ########## Sound source: http://ccmixter.org/files/Apoxode/59262
@@ -102,8 +99,6 @@ class ZeldaGame(arcade.Window):
     """
         self.background_music.play()
 
-
-
     def add_enemy(self, delta_time: float):
         """Adds a new enemy to the screen
     Arguments:
@@ -126,6 +121,8 @@ class ZeldaGame(arcade.Window):
         self.enemies_list.append(self._enemy2)
         self.all_sprites.append(self._enemy2)
 
+        self._enemy.set_health(3)
+        self._enemy2.set_health(2)
     
     def on_key_press(self, symbol, modifiers):
 
@@ -267,18 +264,16 @@ class ZeldaGame(arcade.Window):
 
         for enemy in self.enemies_list:
             collisions = enemy.collides_with_list(self.missile_list)
+
             if collisions:
+                enemy.set_health(-1)
+
                 self.collision_sound.play()
-
-
-                self.room1.list_of_enemies.append(enemy)
-                enemy.remove_from_sprite_lists()
 
                 for missile in collisions:
                     missile.remove_from_sprite_lists()  
-                    enemy.health -=1          
                 if enemy.health <= 0:
-                    self.room.list_of_enemies.append(enemy)
+                    self.room1.list_of_enemies.append(enemy)
                     enemy.remove_from_sprite_lists()
         
         # This removes all the right boxes if the count of enemies died are 2 (just for room1)

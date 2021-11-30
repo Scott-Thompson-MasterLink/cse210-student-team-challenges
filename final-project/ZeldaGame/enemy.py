@@ -8,7 +8,7 @@ class Enemy(arcade.Sprite):
         super().__init__(filename, sprite_scaling)
         self.moving_left = True
         self.moving_right = False
-        self.health = 2
+        self.__health = 0
 
     def position_enemy(self, left, bottom):
         self.left = left
@@ -31,3 +31,10 @@ class Enemy(arcade.Sprite):
             self.moving_left = True
             self.moving_right = False
             self.center_x -= factor
+
+    def set_health(self, health=1):
+        self.__health += health
+
+    @property
+    def health(self):
+        return self.__health

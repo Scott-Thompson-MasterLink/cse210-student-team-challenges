@@ -1,4 +1,4 @@
-boxes_room1 = [
+metal_boxes = [
     [1, 1],
     [50, 1],
     [1, 50],

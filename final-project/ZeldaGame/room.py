@@ -1,5 +1,7 @@
 import arcade
 from ZeldaGame.abstract_object import MainObjects
+from ZeldaGame.obstacles import Obstacle
+from ZeldaGame.scaling import SPRITE_SCALING
 
 class Room(MainObjects):
 
@@ -29,3 +31,10 @@ class Room(MainObjects):
                     i.visible = False
         else:
             return
+
+    def add_multiple_sprites(self, path, coordinates_list):
+
+        for box in coordinates_list:
+            blue_box = Obstacle(path, SPRITE_SCALING)
+            blue_box.position_obstacle(box[0], box[1])
+            self.add_sprite(blue_box)
