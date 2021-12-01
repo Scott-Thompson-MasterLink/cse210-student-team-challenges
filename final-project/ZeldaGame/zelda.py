@@ -268,9 +268,9 @@ class ZeldaGame(arcade.Window):
                 if enemy.cur_health <= 0:
                     enemy.remove_from_sprite_lists()
                     self.rooms_list[self.current_room].list_of_enemies.append(enemy)
-                else:
-                    for missile in collisions:                   
-                        missile.remove_from_sprite_lists() 
+                
+                for missile in collisions:                   
+                    missile.remove_from_sprite_lists() 
         
         # This removes all the right boxes if the count of enemies died are 2 (just for room1)
         self.room1.remove_walls(2)
