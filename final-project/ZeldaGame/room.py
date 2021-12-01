@@ -25,9 +25,9 @@ class Room(MainObjects):
     def remove_walls(self, counter):
 
         if len(self.__list_of_enemies) == counter:
-            for i in self.__wall_list.sprite_list:
+            for i in self.__wall_list:
                 if i.left == 775:
-                    self.__wall_list.sprite_list.remove(i)
+                    self.__wall_list.remove(i)
                     i.visible = False
         else:
             return

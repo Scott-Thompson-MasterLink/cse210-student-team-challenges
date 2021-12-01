@@ -29,8 +29,8 @@ class ZeldaGame(arcade.Window):
         self.missile_list = arcade.SpriteList()
         self.all_sprites = arcade.SpriteList()
         self.physics_engine = None
-        self._enemy = Enemy("cse210-student-team-challenges/final-project/images/monster1.png", SPRITE_SCALING)
-        self._enemy2 = Enemy("cse210-student-team-challenges/final-project/images/monster3.png", SPRITE_SCALING)
+        self._enemy = Enemy("cse210-student-team-challenges/final-project/images/monster1.png", SPRITE_SCALING,max_health=1)
+        self._enemy2 = Enemy("cse210-student-team-challenges/final-project/images/monster3.png", SPRITE_SCALING,max_health=2)
         
         self.player = Player()
         self.health = 99
@@ -112,18 +112,14 @@ class ZeldaGame(arcade.Window):
         self._enemy2.position_enemy(100, 400)
 
         self._enemy.position_enemy(600, 150)
-        # Set its speed to a random speed heading left
-        # self._enemy.velocity = (random.randint(-200, -80), 0)
-
+        
         # Add it to the enemies list
         self.enemies_list.append(self._enemy)
         self.all_sprites.append(self._enemy)
         self.enemies_list.append(self._enemy2)
         self.all_sprites.append(self._enemy2)
 
-        self._enemy.set_health(3)
-        self._enemy2.set_health(2)
-    
+            
     def on_key_press(self, symbol, modifiers):
 
         """Handle user keyboard input
@@ -266,15 +262,15 @@ class ZeldaGame(arcade.Window):
             collisions = enemy.collides_with_list(self.missile_list)
 
             if collisions:
-                enemy.set_health(-1)
                 self.collision_sound.play()
-
-                for missile in collisions:
-                    missile.remove_from_sprite_lists()  
-
-                if enemy.health <= 0:
-                    self.room1.list_of_enemies.append(enemy)
+                           
+                enemy.cur_health -= 1
+                if enemy.cur_health <= 0:
                     enemy.remove_from_sprite_lists()
+                    self.rooms_list[self.current_room].list_of_enemies.append(enemy)
+                else:
+                    for missile in collisions:                   
+                        missile.remove_from_sprite_lists() 
         
         # This removes all the right boxes if the count of enemies died are 2 (just for room1)
         self.room1.remove_walls(2)
@@ -308,6 +304,11 @@ class ZeldaGame(arcade.Window):
 
         self.all_sprites.draw()
         self.player.draw()
+        self.enemies_list.draw()
+
+        for enemy in self.enemies_list:
+            enemy.draw_health_number()
+            enemy.draw_health_bar()
 
 
 if __name__ == "__main__":
