@@ -7,8 +7,14 @@ class Room(MainObjects):
 
     def __init__(self, background):
         self.__wall_list = arcade.SpriteList()
-        self.__list_of_enemies = []
+        self.__list_of_enemies = arcade.SpriteList()
         self.background = arcade.load_texture(f"{background}")
+        self.__quantity_of_enemies_died = 0
+        self.enemies_in_the_room = 2
+
+    @property
+    def room(self):
+        return self.__enemies_in_the_room
     
     @property
     def sprite_list(self):
@@ -22,11 +28,11 @@ class Room(MainObjects):
         sprite = sprite_object
         self.__wall_list.append(sprite)
 
-    def remove_walls(self, counter):
+    def remove_walls(self, list_to_remove):
 
-        if len(self.__list_of_enemies) == counter:
+        if self.__quantity_of_enemies_died == self.enemies_in_the_room:
             for i in self.__wall_list:
-                if i.left == 775:
+                if i.left == list_to_remove[0][0]:
                     self.__wall_list.remove(i)
                     i.visible = False
         else:
@@ -38,3 +44,9 @@ class Room(MainObjects):
             blue_box = Obstacle(path, SPRITE_SCALING)
             blue_box.position_obstacle(box[0], box[1])
             self.add_sprite(blue_box)
+
+    def set_died_enemy(self, enemy):
+        self.__quantity_of_enemies_died += enemy
+    
+    def set_enemies_in_room(self, enemies):
+        self.enemies_in_the_room = enemies
