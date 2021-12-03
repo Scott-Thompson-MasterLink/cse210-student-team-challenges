@@ -11,6 +11,8 @@ from ZeldaGame.obstacles_lists import *
 from ZeldaGame.player import Player
 from ZeldaGame.on_draw import *
 from ZeldaGame.set_up_room import room1, room2
+from ZeldaGame.collision_player import player_collision
+from ZeldaGame.collision_enemy import enemy_collision
 
 from ZeldaGame.fire import Shooter, ShootUp, ShootDown, ShootLeft, ShootRight
 
@@ -61,31 +63,19 @@ class ZeldaGame(arcade.Window):
             "cse210-student-team-challenges/final-project/sounds/Apoxode_-_Electric_1.wav"
         )
 
-        self.collision_sound = arcade.load_sound("cse210-student-team-challenges/final-project/sounds/Collision.wav")
+        
         # self.move_up_sound = arcade.load_sound("sounds/Rising_putter.wav")
         # self.move_down_sound = arcade.load_sound("sounds/Falling_putter.wav")
 
 
-# ########## Play the background music and schedule the loop
+        # Play the background music and schedule the loop
         self.play_background_music()
         arcade.schedule(self.play_background_music, 15)
 
     def play_background_music(self, delta_time: int = 0):
         """Starts playing the background music
     """
-        self.background_music.play()
-
-    def add_enemy(self, delta_time: float):
-        """Adds a new enemy to the screen
-    Arguments:
-        delta_time {float} -- How much time has passed since the last call
-    """
-
-        if self.paused:
-            return
-
-        # Set its position to a random height and off screen right
-        
+        self.background_music.play()   
 
             
     def on_key_press(self, symbol, modifiers):
@@ -160,10 +150,7 @@ class ZeldaGame(arcade.Window):
             self.shoot_direction = 'right'
             missile = Weapon("cse210-student-team-challenges/final-project/images/arrow_right.png", SCALING)
             shoot = Shooter(ShootRight())
-            shoot.do_shoot(self.player, missile, self.missile_list, self.all_sprites)
-            
-
-            
+            shoot.do_shoot(self.player, missile, self.missile_list, self.all_sprites)            
         
 
     def on_key_release(self, symbol: int, modifiers: int):
@@ -211,34 +198,17 @@ class ZeldaGame(arcade.Window):
         # This line of code prevents player to go through the obstaclees
         self.physics_engine.update()
 
+
+        # Updates the velocity of the enemies
         for i in self.rooms_list[self.current_room].list_of_enemies:
-            i.update(5, 70)
+            velocity = 5 * (self.current_room + 1)
+            i.move_horizontally(velocity, 70)
 
+        # Verifies the collision between the player and enemies
+        player_collision.player_collides_with_list(self.player, self.rooms_list[self.current_room].list_of_enemies, self.health)
 
-        if self.player.collides_with_list(self.rooms_list[self.current_room].list_of_enemies):
-            # if delta_time >=3:
-            self.collision_sound.play()
-
-            if self.health > 0:
-                self.health -= 1
-            # Stop the game and schedule the game close
-            else:
-                self.paused = True
-                arcade.schedule(lambda delta_time: arcade.close_window(), 0.5)
-
-        for enemy in self.rooms_list[self.current_room].list_of_enemies:
-            collisions = enemy.collides_with_list(self.missile_list)
-
-            if collisions:
-                self.collision_sound.play()    
-                enemy.cur_health -= 1
-
-                if enemy.cur_health <= 0:
-                    enemy.remove_from_sprite_lists()
-                    self.rooms_list[self.current_room].set_died_enemy(1)
-                
-                for missile in collisions:                   
-                    missile.remove_from_sprite_lists() 
+        # Verifies if an enemy did collide with a missile
+        enemy_collision.enemy_collides_with_missile(self.rooms_list[self.current_room].list_of_enemies, self.missile_list, self.rooms_list[self.current_room])
         
         # This removes all the right boxes if the count of enemies died are the same as the enemy list
         self.rooms_list[self.current_room].remove_walls(little_boxes_right)
@@ -251,11 +221,7 @@ class ZeldaGame(arcade.Window):
             sprite.center_y = int(
                 sprite.center_y + sprite.change_y * delta_time
             )
-
-        if self.player.top > self.height:
-            self.player.top = self.height
-        elif self.player.bottom < 0:
-            self.player.bottom = 0   
+            
     
     def on_draw(self):
         """Draw all game objects

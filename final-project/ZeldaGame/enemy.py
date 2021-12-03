@@ -18,7 +18,7 @@ class Enemy(arcade.Sprite):
         self.left = left
         self.bottom = bottom
 
-    def update(self, factor, collide_at):
+    def move_horizontally(self, factor, collide_at):
 
         if self.center_x > collide_at and self.moving_left == True:
             self.moving_right = False

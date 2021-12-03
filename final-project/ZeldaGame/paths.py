@@ -10,3 +10,5 @@ path_green_boxes = 'cse210-student-team-challenges/final-project/images/greenbox
 path_enemy1 = "cse210-student-team-challenges/final-project/images/monster1.png"
 path_enemy2 = "cse210-student-team-challenges/final-project/images/monster3.png"
 path_enemy3 = "cse210-student-team-challenges/final-project/images/monster2.png"
+
+path_collision_sound = "cse210-student-team-challenges/final-project/sounds/Collision.wav"
