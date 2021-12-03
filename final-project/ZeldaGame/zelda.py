@@ -75,7 +75,7 @@ class ZeldaGame(arcade.Window):
     def play_background_music(self, delta_time: int = 0):
         """Starts playing the background music
     """
-        self.background_music.play()   
+        self.background_music.play()    
 
             
     def on_key_press(self, symbol, modifiers):
@@ -150,7 +150,10 @@ class ZeldaGame(arcade.Window):
             self.shoot_direction = 'right'
             missile = Weapon("cse210-student-team-challenges/final-project/images/arrow_right.png", SCALING)
             shoot = Shooter(ShootRight())
-            shoot.do_shoot(self.player, missile, self.missile_list, self.all_sprites)            
+            shoot.do_shoot(self.player, missile, self.missile_list, self.all_sprites)
+            
+
+            
         
 
     def on_key_release(self, symbol: int, modifiers: int):
@@ -202,7 +205,7 @@ class ZeldaGame(arcade.Window):
         # Updates the velocity of the enemies
         for i in self.rooms_list[self.current_room].list_of_enemies:
             velocity = 5 * (self.current_room + 1)
-            i.move_horizontally(velocity, 70)
+            i.move_vertically(velocity, 100)
 
         # Verifies the collision between the player and enemies
         player_collision.player_collides_with_list(self.player, self.rooms_list[self.current_room].list_of_enemies, self.health)
