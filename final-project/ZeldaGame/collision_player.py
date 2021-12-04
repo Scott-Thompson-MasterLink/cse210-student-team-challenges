@@ -17,7 +17,9 @@ class PlayerCollision:
             else:
                 self.paused = True
                 arcade.schedule(lambda delta_time: arcade.close_window(), 0.5)
+            
+            return health
         else:
-            return
+            return health
 
 player_collision = PlayerCollision()

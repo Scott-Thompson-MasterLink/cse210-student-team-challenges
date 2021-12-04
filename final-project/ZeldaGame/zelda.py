@@ -34,6 +34,7 @@ class ZeldaGame(arcade.Window):
         self.all_sprites = arcade.SpriteList()
         self.player = Player()
         self.health = 99
+        self.damage = 1
 
     def setup(self):
         """Get the game ready to play
@@ -63,10 +64,6 @@ class ZeldaGame(arcade.Window):
             "cse210-student-team-challenges/final-project/sounds/Apoxode_-_Electric_1.wav"
         )
 
-        
-        # self.move_up_sound = arcade.load_sound("sounds/Rising_putter.wav")
-        # self.move_down_sound = arcade.load_sound("sounds/Falling_putter.wav")
-
 
         # Play the background music and schedule the loop
         self.play_background_music()
@@ -90,25 +87,12 @@ class ZeldaGame(arcade.Window):
             modifiers {int} -- Which modifiers were pressed
         """
 
-        if symbol == arcade.key.Q:
+        if symbol == arcade.key.ESCAPE:
             # Quit immediately
             arcade.close_window()
 
         if symbol == arcade.key.P:
             self.paused = not self.paused
-
-        # if symbol == arcade.key.SPACE:
-
-        #     if self.shoot_direction == 'right':
-                
-
-        #     elif self.shoot_direction == 'left':
-                
-               
-        #     elif self.shoot_direction == 'down':
-                
-               
-        #     elif self.shoot_direction == 'top':
 
         if symbol == arcade.key.W:
 
@@ -204,14 +188,14 @@ class ZeldaGame(arcade.Window):
 
         # Updates the velocity of the enemies
         for i in self.rooms_list[self.current_room].list_of_enemies:
-            velocity = 5 * (self.current_room + 1)
-            i.move_vertically(velocity, 100)
+            velocity = 4 * i.velocity 
+            i.move(velocity, 100)
 
         # Verifies the collision between the player and enemies
-        player_collision.player_collides_with_list(self.player, self.rooms_list[self.current_room].list_of_enemies, self.health)
+        self.health  = player_collision.player_collides_with_list(self.player, self.rooms_list[self.current_room].list_of_enemies, self.health)
 
         # Verifies if an enemy did collide with a missile
-        enemy_collision.enemy_collides_with_missile(self.rooms_list[self.current_room].list_of_enemies, self.missile_list, self.rooms_list[self.current_room])
+        enemy_collision.enemy_collides_with_missile(self.rooms_list[self.current_room].list_of_enemies, self.missile_list, self.rooms_list[self.current_room], self.damage)
         
         # This removes all the right boxes if the count of enemies died are the same as the enemy list
         self.rooms_list[self.current_room].remove_walls(little_boxes_right)
@@ -236,7 +220,7 @@ class ZeldaGame(arcade.Window):
                                              self.rooms_list[self.current_room].background)
 
         # self.rooms_list[self.current_room].sprite_list.draw()
-        arcade.draw_text(f"Health: {self.health + 1}", 2, 10, arcade.color.RED, 12)
+        
 
 
         self.player.draw()        
@@ -246,6 +230,7 @@ class ZeldaGame(arcade.Window):
             self.missile_list
         )
         new_draw.on_draw()
+        arcade.draw_text(f"Health: {self.health + 1}", 2, 10, arcade.color.YELLOW, 12, bold= True)
 
         
         for enemy in self.rooms_list[self.current_room].list_of_enemies:

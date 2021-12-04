@@ -5,7 +5,7 @@ from ZeldaGame.paths import path_collision_sound
 
 class EnemyCollision:
 
-    def enemy_collides_with_missile(self, enemies_list, missile_list, current_room):
+    def enemy_collides_with_missile(self, enemies_list, missile_list, current_room, damage):
         for enemy in enemies_list:
             collisions = enemy.collides_with_list(missile_list)
 
@@ -13,7 +13,7 @@ class EnemyCollision:
                 collision_sound = arcade.load_sound(path_collision_sound)
                 collision_sound.play()
 
-                enemy.cur_health -= 1
+                enemy.cur_health -= damage
 
                 if enemy.cur_health <= 0:
                     enemy.remove_from_sprite_lists()

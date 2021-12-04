@@ -13,8 +13,8 @@ room1.add_multiple_sprites(path_blue_boxes, little_boxes_left)
 room1.add_multiple_sprites(path_blue_boxes, little_boxes_top)
 room1.add_multiple_sprites(path_metal_boxes, corner_boxes)
 
-enemy = Enemy(path_enemy1, SPRITE_SCALING,max_health=1)
-enemy2 = Enemy(path_enemy2, SPRITE_SCALING,max_health=2)
+enemy = Enemy(path_enemy1, SPRITE_SCALING,max_health=1, velocity=2)
+enemy2 = Enemy(path_enemy2, SPRITE_SCALING,max_health=2, velocity= 2.5, movement= 1)
 enemy2.position_enemy(100, 400)
 enemy.position_enemy(600, 150)
 
@@ -33,7 +33,7 @@ room2.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room2.add_multiple_sprites(path_metal_violet_box, corner_boxes)
 
 enemy3 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10)
-enemy4 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10)
+enemy4 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10, movement= 1)
 enemy3.position_enemy(100, 150)
 enemy4.position_enemy(500, 500)
 
