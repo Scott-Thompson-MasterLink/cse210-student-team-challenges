@@ -1,5 +1,5 @@
 import arcade
-from ZeldaGame.scaling import SCREEN_WIDTH,HEALTHBAR_WIDTH,HEALTHBAR_HEIGHT,HEALTHBAR_OFFSET_Y,HEALTH_NUMBER_OFFSET_X,HEALTH_NUMBER_OFFSET_Y
+from ZeldaGame.scaling import SCREEN_WIDTH,HEALTHBAR_WIDTH,HEALTHBAR_HEIGHT,HEALTHBAR_OFFSET_Y,HEALTH_NUMBER_OFFSET_X,HEALTH_NUMBER_OFFSET_Y, SCREEN_HEIGHT
 
 
 class Enemy(arcade.Sprite):
@@ -9,6 +9,8 @@ class Enemy(arcade.Sprite):
         super().__init__(filename, sprite_scaling)
         self.moving_left = True
         self.moving_right = False
+        self.moving_up = True
+        self.moving_down = False
 
         # Add extra attributes for health
         self.max_health = max_health
@@ -18,7 +20,9 @@ class Enemy(arcade.Sprite):
         self.left = left
         self.bottom = bottom
 
-    def update(self, factor, collide_at):
+    def move_horizontally(self, factor, collide_at):
+
+        self.moving_up = False
 
         if self.center_x > collide_at and self.moving_left == True:
             self.moving_right = False
@@ -36,6 +40,25 @@ class Enemy(arcade.Sprite):
             self.moving_right = False
             self.center_x -= factor
 
+    def move_vertically(self, factor, collide_at):
+
+        self.moving_left = False
+
+        if self.center_y > collide_at and self.moving_up == True:
+            self.moving_down = False
+            self.center_y -= factor
+
+        if self.center_y < collide_at:
+            self.moving_down = True
+        
+        if self.moving_down:
+            self.moving_up = False
+            self.center_y += factor
+
+        if self.center_y > SCREEN_HEIGHT - collide_at:
+            self.moving_up = True
+            self.moving_down = False
+            self.center_y -= factor
             
     def draw_health_number(self):
         """ Draw how many hit points we have """
