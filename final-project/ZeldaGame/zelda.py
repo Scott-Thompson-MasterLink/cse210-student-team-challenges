@@ -9,10 +9,12 @@ from ZeldaGame.room import Room
 from ZeldaGame.weapon import Weapon
 from ZeldaGame.obstacles_lists import *
 from ZeldaGame.player import Player
+from ZeldaGame.room_transitions import transition
 from ZeldaGame.on_draw import *
 from ZeldaGame.set_up_room import room1, room2
 from ZeldaGame.collision_player import player_collision
 from ZeldaGame.collision_enemy import enemy_collision
+
 
 from ZeldaGame.fire import Shooter, ShootUp, ShootDown, ShootLeft, ShootRight
 
@@ -51,6 +53,8 @@ class ZeldaGame(arcade.Window):
 
         self.rooms_list.append(room1)
         self.rooms_list.append(room2)
+        self.rooms_list.append(room3)
+
 
         self.player_direction = 'right'
         self.shoot_direction = 'right'
@@ -170,17 +174,11 @@ class ZeldaGame(arcade.Window):
 
         self.player.update()
 
-        if self.player.center_x > SCREEN_WIDTH and self.current_room == 0:
-            self.current_room = 1
-            self.physics_engine = arcade.PhysicsEngineSimple(self.player,
-                                                                self.rooms_list[self.current_room].sprite_list)
-            self.player.center_x = 0
-
-        elif self.player.center_x < 0 and self.current_room == 1:
-            self.current_room = 0
-            self.physics_engine = arcade.PhysicsEngineSimple(self.player,
-                                                                self.rooms_list[self.current_room].sprite_list)
-            self.player.center_x = SCREEN_WIDTH
+        # These lines allow for room transitions
+        self.current_room = transition.transition_between_rooms(self.player, self.current_room)
+        self.physics_engine = arcade.PhysicsEngineSimple(self.player,
+                                                            self.rooms_list[self.current_room].sprite_list)
+            
 
         # This line of code prevents player to go through the obstaclees
         self.physics_engine.update()
