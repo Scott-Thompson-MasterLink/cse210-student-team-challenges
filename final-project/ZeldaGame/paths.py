@@ -1,5 +1,6 @@
 path_room1 = "cse210-student-team-challenges/final-project/images/room1.png"
 path_room2 = "cse210-student-team-challenges/final-project/images/room2.png"
+path_room3 = "cse210-student-team-challenges/final-project/images/room3.png"
 
 path_metal_boxes = 'cse210-student-team-challenges/final-project/images/metal_box.png'
 path_metal_violet_box = 'cse210-student-team-challenges/final-project/images/violet_box.png'

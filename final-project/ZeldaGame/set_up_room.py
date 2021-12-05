@@ -41,3 +41,12 @@ room2.list_of_enemies.append(enemy3)
 room2.list_of_enemies.append(enemy4)
 
 room2.set_enemies_in_room(2)
+
+#Room3
+room3 = Room(path_room3)
+
+room3.add_multiple_sprites(path_green_boxes, little_boxes_right)
+room3.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
+# room3.add_multiple_sprites(path_green_boxes, little_boxes_left)
+room3.add_multiple_sprites(path_green_boxes, little_boxes_top)
+room3.add_multiple_sprites(path_metal_violet_box, corner_boxes)

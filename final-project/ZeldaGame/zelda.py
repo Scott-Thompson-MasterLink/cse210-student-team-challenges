@@ -11,7 +11,7 @@ from ZeldaGame.obstacles_lists import *
 from ZeldaGame.player import Player
 from ZeldaGame.room_transitions import transition
 from ZeldaGame.on_draw import *
-from ZeldaGame.set_up_room import room1, room2
+from ZeldaGame.set_up_room import room1, room2, room3
 from ZeldaGame.collision_player import player_collision
 from ZeldaGame.collision_enemy import enemy_collision
 
