@@ -10,6 +10,11 @@ from ZeldaGame.weapon import Weapon
 from ZeldaGame.obstacles_lists import *
 from ZeldaGame.player import Player
 from ZeldaGame.room_transitions import transition
+from ZeldaGame.on_draw import *
+from ZeldaGame.set_up_room import room1, room2
+from ZeldaGame.collision_player import player_collision
+from ZeldaGame.collision_enemy import enemy_collision
+
 
 from ZeldaGame.fire import Shooter, ShootUp, ShootDown, ShootLeft, ShootRight
 
@@ -29,20 +34,15 @@ class ZeldaGame(arcade.Window):
         self.current_room = 0
         self.missile_list = arcade.SpriteList()
         self.all_sprites = arcade.SpriteList()
-        self.physics_engine = None
-        self._enemy = Enemy("cse210-student-team-challenges/final-project/images/monster1.png", SPRITE_SCALING,max_health=1)
-        self._enemy2 = Enemy("cse210-student-team-challenges/final-project/images/monster3.png", SPRITE_SCALING,max_health=2)
-        
         self.player = Player()
         self.health = 99
+        self.damage = 1
 
     def setup(self):
         """Get the game ready to play
         """
 
-         # Set up the player
-
-        #self.player = arcade.Sprite("cse210-student-team-challenges/final-project/images/front_run1.png", SCALING/2.5)
+        # Set up the player
         self.player.center_x = 400
         self.player.center_y = self.height / 2
         self.player.scale = 0.5
@@ -50,77 +50,33 @@ class ZeldaGame(arcade.Window):
         self.all_sprites.append(self.player)
         self.paused = False
 
-        self.room1 = Room("cse210-student-team-challenges/final-project/images/room1.png")
-        self.room2 = Room("cse210-student-team-challenges/final-project/images/room2.png")
-        self.room3 = Room("cse210-student-team-challenges/final-project/images/room3.png")
 
-        self.rooms_list.append(self.room1)
-        self.rooms_list.append(self.room2)
-        self.rooms_list.append(self.room3)
+        self.rooms_list.append(room1)
+        self.rooms_list.append(room2)
+        self.rooms_list.append(room3)
+
 
         self.player_direction = 'right'
         self.shoot_direction = 'right'
-        
-
-        # Spawn a new enemy in 0 seconds
-        arcade.schedule(self.add_enemy, 0)
-
-        # Stablish the path of the boxes
-        path_metal_boxes = 'cse210-student-team-challenges/final-project/images/metal_box.png'
-        path_blue_boxes = 'cse210-student-team-challenges/final-project/images/bluebox.png'
-
-        # Add the boxes to the current room
-        self.rooms_list[self.current_room].add_multiple_sprites(path_blue_boxes, blue_boxes)
-        self.rooms_list[self.current_room].add_multiple_sprites(path_metal_boxes, metal_boxes)
 
         # Create a physics engine for this room
         self.physics_engine = arcade.PhysicsEngineSimple(self.player,
                                                          self.rooms_list[self.current_room].sprite_list)
-
-# ########## Load background music
-# ########## Sound source: http://ccmixter.org/files/Apoxode/59262
-# ########## License: https://creativecommons.org/licenses/by/3.0/
 
 
         self.background_music = arcade.load_sound(
             "cse210-student-team-challenges/final-project/sounds/Apoxode_-_Electric_1.wav"
         )
 
-# ########## Load all the sounds
-# ########## Sound sources: Jon Fincher
-        self.collision_sound = arcade.load_sound("cse210-student-team-challenges/final-project/sounds/Collision.wav")
-        # self.move_up_sound = arcade.load_sound("sounds/Rising_putter.wav")
-        # self.move_down_sound = arcade.load_sound("sounds/Falling_putter.wav")
 
-
-# ########## Play the background music and schedule the loop
+        # Play the background music and schedule the loop
         self.play_background_music()
         arcade.schedule(self.play_background_music, 15)
 
     def play_background_music(self, delta_time: int = 0):
         """Starts playing the background music
     """
-        self.background_music.play()
-
-    def add_enemy(self, delta_time: float):
-        """Adds a new enemy to the screen
-    Arguments:
-        delta_time {float} -- How much time has passed since the last call
-    """
-
-        if self.paused:
-            return
-
-        # Set its position to a random height and off screen right
-        self._enemy2.position_enemy(100, 400)
-
-        self._enemy.position_enemy(600, 150)
-        
-        # Add it to the enemies list
-        self.enemies_list.append(self._enemy)
-        self.all_sprites.append(self._enemy)
-        self.enemies_list.append(self._enemy2)
-        self.all_sprites.append(self._enemy2)
+        self.background_music.play()    
 
             
     def on_key_press(self, symbol, modifiers):
@@ -135,25 +91,12 @@ class ZeldaGame(arcade.Window):
             modifiers {int} -- Which modifiers were pressed
         """
 
-        if symbol == arcade.key.Q:
+        if symbol == arcade.key.ESCAPE:
             # Quit immediately
             arcade.close_window()
 
         if symbol == arcade.key.P:
             self.paused = not self.paused
-
-        # if symbol == arcade.key.SPACE:
-
-        #     if self.shoot_direction == 'right':
-                
-
-        #     elif self.shoot_direction == 'left':
-                
-               
-        #     elif self.shoot_direction == 'down':
-                
-               
-        #     elif self.shoot_direction == 'top':
 
         if symbol == arcade.key.W:
 
@@ -240,37 +183,20 @@ class ZeldaGame(arcade.Window):
         # This line of code prevents player to go through the obstaclees
         self.physics_engine.update()
 
-        self._enemy.update(5, 70)
-        self._enemy2.update(5, 70)
 
+        # Updates the velocity of the enemies
+        for i in self.rooms_list[self.current_room].list_of_enemies:
+            velocity = 4 * i.velocity 
+            i.move(velocity, 100)
 
-        if self.player.collides_with_list(self.enemies_list):
-            # if delta_time >=3:
-            self.collision_sound.play()
+        # Verifies the collision between the player and enemies
+        self.health  = player_collision.player_collides_with_list(self.player, self.rooms_list[self.current_room].list_of_enemies, self.health)
 
-            if self.health > 0:
-                self.health -= 1
-            # Stop the game and schedule the game close
-            else:
-                self.paused = True
-                arcade.schedule(lambda delta_time: arcade.close_window(), 0.5)
-
-        for enemy in self.enemies_list:
-            collisions = enemy.collides_with_list(self.missile_list)
-
-            if collisions:
-                self.collision_sound.play()
-                           
-                enemy.cur_health -= 1
-                if enemy.cur_health <= 0:
-                    enemy.remove_from_sprite_lists()
-                    self.rooms_list[self.current_room].list_of_enemies.append(enemy)
-                
-                for missile in collisions:                   
-                    missile.remove_from_sprite_lists() 
+        # Verifies if an enemy did collide with a missile
+        enemy_collision.enemy_collides_with_missile(self.rooms_list[self.current_room].list_of_enemies, self.missile_list, self.rooms_list[self.current_room], self.damage)
         
-        # This removes all the right boxes if the count of enemies died are 2 (just for room1)
-        self.room1.remove_walls(2)
+        # This removes all the right boxes if the count of enemies died are the same as the enemy list
+        self.rooms_list[self.current_room].remove_walls(little_boxes_right)
 
         # Update everything
         for sprite in self.all_sprites:
@@ -280,30 +206,32 @@ class ZeldaGame(arcade.Window):
             sprite.center_y = int(
                 sprite.center_y + sprite.change_y * delta_time
             )
-
-        if self.player.top > self.height:
-            self.player.top = self.height
-        elif self.player.bottom < 0:
-            self.player.bottom = 0   
+            
     
     def on_draw(self):
         """Draw all game objects
         """
         arcade.start_render()
+
         arcade.draw_lrwh_rectangle_textured(0, 0,
                                             SCREEN_WIDTH, SCREEN_HEIGHT,
                                              self.rooms_list[self.current_room].background)
-        # Draw all the walls in this room
 
-        self.rooms_list[self.current_room].sprite_list.draw()
-        arcade.draw_text(f"Health: {self.health + 1}", 2, 10, arcade.color.RED, 12)
+        # self.rooms_list[self.current_room].sprite_list.draw()
+        
 
 
-        self.all_sprites.draw()
-        self.player.draw()
-        self.enemies_list.draw()
+        self.player.draw()        
+        new_draw = Draw(
+            self.rooms_list[self.current_room].list_of_enemies, 
+            self.rooms_list[self.current_room].sprite_list, 
+            self.missile_list
+        )
+        new_draw.on_draw()
+        arcade.draw_text(f"Health: {self.health + 1}", 2, 10, arcade.color.YELLOW, 12, bold= True)
 
-        for enemy in self.enemies_list:
+        
+        for enemy in self.rooms_list[self.current_room].list_of_enemies:
             enemy.draw_health_number()
             enemy.draw_health_bar()
 
