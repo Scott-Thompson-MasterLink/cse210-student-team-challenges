@@ -17,6 +17,10 @@ class RoomTransitions:
             current_room = 2
             player.center_x = 0
 
+        elif player.center_x < 0 and current_room == 2:
+            current_room = 1
+            player.center_x = SCREEN_WIDTH
+        
         return current_room
 
 transition = RoomTransitions()
