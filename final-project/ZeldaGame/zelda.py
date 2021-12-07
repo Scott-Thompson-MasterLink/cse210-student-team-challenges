@@ -196,7 +196,19 @@ class ZeldaGame(arcade.Window):
         enemy_collision.enemy_collides_with_missile(self.rooms_list[self.current_room].list_of_enemies, self.missile_list, self.rooms_list[self.current_room], self.damage)
         
         # This removes all the right boxes if the count of enemies died are the same as the enemy list
-        self.rooms_list[self.current_room].remove_walls(little_boxes_right)
+        walls_to_remove_by_room = [
+            [little_boxes_left],                                            # Walls to remove for room 1
+            [little_boxes_top,little_boxes_right],                          # Walls to remove for room 2
+            [little_boxes_top,little_boxes_right,little_boxes_bottom],      # Walls to remove for room 3
+            [little_boxes_bottom],                                          # Walls to remove for room 4
+            [little_boxes_right,little_boxes_top,little_boxes_left],        # Walls to remove for room 5
+            [little_boxes_bottom,little_boxes_left],                        # Walls to remove for room 6
+            [little_boxes_top],                                             # Walls to remove for room 7
+            [little_boxes_right,little_boxes_top,little_boxes_bottom],      # Walls to remove for room 8
+            [little_boxes_left]                                             # Walls to remove for room 9
+        ]
+        walls_to_remove = walls_to_remove_by_room[self.current_room]
+        self.rooms_list[self.current_room].remove_walls(walls_to_remove)
 
         # Update everything
         for sprite in self.all_sprites:
