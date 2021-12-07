@@ -11,7 +11,8 @@ from ZeldaGame.obstacles_lists import *
 from ZeldaGame.player import Player
 from ZeldaGame.room_transitions import transition
 from ZeldaGame.on_draw import *
-from ZeldaGame.set_up_room import room1, room2, room3
+# from ZeldaGame.set_up_room import room1, room2, room3
+from ZeldaGame.set_up_room import *
 from ZeldaGame.collision_player import player_collision
 from ZeldaGame.collision_enemy import enemy_collision
 
@@ -32,6 +33,7 @@ class ZeldaGame(arcade.Window):
         self.enemies_list = arcade.SpriteList()
         self.rooms_list = []
         self.current_room = 0
+        self.new_current_room = rooms[0]
         self.missile_list = arcade.SpriteList()
         self.all_sprites = arcade.SpriteList()
         self.player = Player()
@@ -51,9 +53,12 @@ class ZeldaGame(arcade.Window):
         self.paused = False
 
 
-        self.rooms_list.append(room1)
-        self.rooms_list.append(room2)
-        self.rooms_list.append(room3)
+        for room in rrooms:
+            self.rooms_list.append(room)
+
+        # self.rooms_list.append(room1)
+        # self.rooms_list.append(room2)
+        # self.rooms_list.append(room3)
 
 
         self.player_direction = 'right'
@@ -175,7 +180,9 @@ class ZeldaGame(arcade.Window):
         self.player.update()
 
         # These lines allow for room transitions
-        self.current_room = transition.transition_between_rooms(self.player, self.current_room)
+        # self.current_room = transition.transition_between_rooms(self.player, self.current_room)
+        self.new_current_room = transition.transition_rooms(self.player, self.current_room, self.new_current_room)
+        self.current_room = self.new_current_room.room_id
         self.physics_engine = arcade.PhysicsEngineSimple(self.player,
                                                             self.rooms_list[self.current_room].sprite_list)
             
@@ -196,6 +203,7 @@ class ZeldaGame(arcade.Window):
         enemy_collision.enemy_collides_with_missile(self.rooms_list[self.current_room].list_of_enemies, self.missile_list, self.rooms_list[self.current_room], self.damage)
         
         # This removes all the right boxes if the count of enemies died are the same as the enemy list
+        '''
         walls_to_remove_by_room = [
             [little_boxes_left],                                            # Walls to remove for room 1
             [little_boxes_top,little_boxes_right],                          # Walls to remove for room 2
@@ -208,7 +216,12 @@ class ZeldaGame(arcade.Window):
             [little_boxes_left]                                             # Walls to remove for room 9
         ]
         walls_to_remove = walls_to_remove_by_room[self.current_room]
-        self.rooms_list[self.current_room].remove_walls(walls_to_remove)
+        '''
+        wall_removals = {'left':little_boxes_left,'right':little_boxes_right,'up':little_boxes_top,'down':little_boxes_bottom}
+        walls_to_remove = [wall_removals[link] for link,value in self.new_current_room.links.items() if value is not None]
+        # self.rooms_list[self.current_room].remove_walls(walls_to_remove)
+        for wall in walls_to_remove:
+            self.rooms_list[self.current_room].remove_walls(wall)
 
         # Update everything
         for sprite in self.all_sprites:
