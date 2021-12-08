@@ -1,6 +1,6 @@
 import arcade
 from ZeldaGame.scaling import *
-from ZeldaGame.current_room import *
+from ZeldaGame.room_links import *
 
 class RoomTransitions:
     

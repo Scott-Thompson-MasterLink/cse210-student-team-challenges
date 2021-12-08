@@ -3,7 +3,7 @@ from ZeldaGame.obstacles_lists import *
 from ZeldaGame.enemy import Enemy
 from ZeldaGame.scaling import SPRITE_SCALING
 from ZeldaGame.paths import *
-from ZeldaGame.current_room import RoomLinks
+from ZeldaGame.room_links import RoomLinks
 
 # # Room 1
 # room1 = Room(path_room1)
