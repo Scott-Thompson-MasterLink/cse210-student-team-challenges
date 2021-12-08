@@ -3,6 +3,7 @@ from ZeldaGame.obstacles_lists import *
 from ZeldaGame.enemy import Enemy
 from ZeldaGame.scaling import SPRITE_SCALING
 from ZeldaGame.paths import *
+from ZeldaGame.current_room import RoomLinks
 
 # # Room 1
 # room1 = Room(path_room1)
@@ -140,9 +141,9 @@ room1.set_enemies_in_room(2)
 # Room2
 room2 = rrooms[1]
 
-room2.add_multiple_sprites(path_green_boxes, little_boxes_right)
+# room2.add_multiple_sprites(path_green_boxes, little_boxes_right)
 room2.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
-# room2.add_multiple_sprites(path_green_boxes, little_boxes_left)
+room2.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room2.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room2.add_multiple_sprites(path_metal_violet_box, corner_boxes)
 
@@ -156,12 +157,24 @@ room2.list_of_enemies.append(enemy4)
 
 room2.set_enemies_in_room(2)
 
+
+for room in rrooms[2:-1]:
+    enemy3 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10)
+    enemy4 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10, movement= 1)
+    enemy3.position_enemy(100, 150)
+    enemy4.position_enemy(500, 500)
+
+    room.list_of_enemies.append(enemy3)
+    room.list_of_enemies.append(enemy4)
+
+    room.set_enemies_in_room(2)
+
 #Room3
 room3 = rrooms[2]
 
 room3.add_multiple_sprites(path_green_boxes, little_boxes_right)
-room3.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
-# room3.add_multiple_sprites(path_green_boxes, little_boxes_left)
+# room3.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
+room3.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room3.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room3.add_multiple_sprites(path_metal_violet_box, corner_boxes)
 
@@ -169,8 +182,8 @@ room3.add_multiple_sprites(path_metal_violet_box, corner_boxes)
 room4 = rrooms[3]
 
 room4.add_multiple_sprites(path_green_boxes, little_boxes_right)
-room4.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
-# room4.add_multiple_sprites(path_green_boxes, little_boxes_left)
+# room4.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
+room4.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room4.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room4.add_multiple_sprites(path_metal_violet_box, corner_boxes)
 
@@ -197,16 +210,16 @@ room7 = rrooms[6]
 
 room7.add_multiple_sprites(path_green_boxes, little_boxes_right)
 room7.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
-# room7.add_multiple_sprites(path_green_boxes, little_boxes_left)
-room7.add_multiple_sprites(path_green_boxes, little_boxes_top)
+room7.add_multiple_sprites(path_green_boxes, little_boxes_left)
+# room7.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room7.add_multiple_sprites(path_metal_violet_box, corner_boxes)
 
 #Room8
 room8 = rrooms[7]
 
 room8.add_multiple_sprites(path_green_boxes, little_boxes_right)
-room8.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
-# room8.add_multiple_sprites(path_green_boxes, little_boxes_left)
+# room8.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
+room8.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room8.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room8.add_multiple_sprites(path_metal_violet_box, corner_boxes)
 
@@ -223,8 +236,8 @@ room9.add_multiple_sprites(path_metal_violet_box, corner_boxes)
 room10 = rrooms[9]
 
 room10.add_multiple_sprites(path_green_boxes, little_boxes_right)
-room10.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
-# room10.add_multiple_sprites(path_green_boxes, little_boxes_left)
+# room10.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
+room10.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room10.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room10.add_multiple_sprites(path_metal_violet_box, corner_boxes)
 
@@ -234,7 +247,6 @@ room10.add_multiple_sprites(path_metal_violet_box, corner_boxes)
 
 
 
-from ZeldaGame.current_room import RoomLinks
 
 rooms = {i:RoomLinks(i) for i in range (10)}
 

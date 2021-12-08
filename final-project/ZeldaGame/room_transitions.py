@@ -1,5 +1,6 @@
 import arcade
 from ZeldaGame.scaling import *
+from ZeldaGame.current_room import *
 
 class RoomTransitions:
     
@@ -47,7 +48,7 @@ class RoomTransitions:
         
     #     return current_room
 
-    def transition_rooms(self,player,current_room,new_current_room):
+    def transition_rooms(self,player,current_room,new_current_room:RoomLinks):
         if player.center_x > SCREEN_WIDTH and new_current_room.links['right'] is not None:
             new_current_room = new_current_room.links['right']
             player.center_x = 0

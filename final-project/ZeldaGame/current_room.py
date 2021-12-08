@@ -6,4 +6,3 @@ class RoomLinks:
     def link_room(self,d,room):
         self.links[d] = room
         room.links[self.opposites[d]] = self
-
