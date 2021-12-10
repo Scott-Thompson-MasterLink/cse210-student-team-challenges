@@ -245,7 +245,7 @@ class ZeldaGame(arcade.Window):
         walls_to_remove = [(link,wall_removals[link]) for link,value in self.new_current_room.links.items() if value is not None]
         # self.rooms_list[self.current_room].remove_walls(walls_to_remove)
         for link,wall in walls_to_remove:
-            print(self.new_current_room.links)
+            # print(self.new_current_room.links)
             # if self.rooms_list[self.current_room].__quantity_of_enemies_died == self.rooms_list[self.current_room].enemies_in_the_room:
             self.rooms_list[self.current_room].remove_walls(wall,link)
 
