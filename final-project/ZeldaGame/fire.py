@@ -2,6 +2,9 @@ from abc import ABC, abstractmethod
 
 class Fire(ABC):
 
+    def __init__(self):
+        self.velocity = 500
+
     @abstractmethod
     def shoot(self):
         pass
@@ -18,10 +21,13 @@ class Shooter:
 
 class ShootUp(Fire):
 
+    def __init__(self):
+        super().__init__()
+
     def shoot(self, player, artillery, artillery_list, all_sprites):
         artillery.center_x = player.center_x
         artillery.center_y = player.center_y - 5
-        artillery.change_y = 500
+        artillery.change_y = self.velocity
         artillery.change_angle = 90
 
         artillery_list.append(artillery)
@@ -29,11 +35,14 @@ class ShootUp(Fire):
 
 class ShootDown(Fire):
 
+    def __init__(self):
+        super().__init__()
+
     def shoot(self, player, artillery, artillery_list, all_sprites):
     
         artillery.center_x = player.center_x
         artillery.center_y = player.center_y - 5
-        artillery.change_y = -500
+        artillery.change_y = -self.velocity
         artillery.change_angle = 90
 
         artillery_list.append(artillery)
@@ -41,21 +50,27 @@ class ShootDown(Fire):
 
 class ShootLeft(Fire):
 
+    def __init__(self):
+        super().__init__()
+
     def shoot(self, player, artillery, artillery_list, all_sprites):
         artillery.center_x = player.center_x
         artillery.center_y = player.center_y - 5
-        artillery.change_x = -500
+        artillery.change_x = -self.velocity
         artillery.change_angle = 180
 
         artillery_list.append(artillery)
         all_sprites.append(artillery)
 
 class ShootRight(Fire):
+
+    def __init__(self):
+        super().__init__()
     
     def shoot(self, player, artillery, artillery_list, all_sprites):
         artillery.center_x = player.center_x
         artillery.center_y = player.center_y - 5
-        artillery.velocity = (500, 0)
+        artillery.velocity = (self.velocity, 0)
 
         artillery_list.append(artillery)
         all_sprites.append(artillery)

@@ -1,6 +1,9 @@
 import arcade
-from ZeldaGame.scaling import SCREEN_WIDTH,HEALTHBAR_WIDTH,HEALTHBAR_HEIGHT,HEALTHBAR_OFFSET_Y,HEALTH_NUMBER_OFFSET_X,HEALTH_NUMBER_OFFSET_Y, SCREEN_HEIGHT
+import random
 
+from ZeldaGame.scaling import SCALING, SCREEN_WIDTH,HEALTHBAR_WIDTH,HEALTHBAR_HEIGHT,HEALTHBAR_OFFSET_Y,HEALTH_NUMBER_OFFSET_X,HEALTH_NUMBER_OFFSET_Y, SCREEN_HEIGHT
+from ZeldaGame.fire import *
+from ZeldaGame.weapon import Weapon
 
 class Enemy(arcade.Sprite):
     
@@ -19,6 +22,7 @@ class Enemy(arcade.Sprite):
         self.velocity = velocity
         self.shoot = shoot
         self.shot_frequency = shot_frequency
+        self.shots = [ShootUp(), ShootDown(), ShootLeft(), ShootRight()]
 
     def position_enemy(self, left, bottom):
         self.left = left
@@ -64,6 +68,17 @@ class Enemy(arcade.Sprite):
                 self.moving_up = True
                 self.moving_down = False
                 self.center_y -= factor
+
+    def enemy_shoot(self):
+        
+        if self.shoot:
+            new_shot = random.choice(self.shots)
+            new_shot.velocity = 150 * self.shot_frequency
+            shot = Shooter(new_shot)
+            return shot
+        else:
+            return
+
             
     def draw_health_number(self):
         """ Draw how many hit points we have """
