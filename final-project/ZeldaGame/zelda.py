@@ -35,10 +35,12 @@ class ZeldaGame(arcade.Window):
         self.current_room = 0
         self.new_current_room = rooms[0]
         self.missile_list = arcade.SpriteList()
+        self.missile_enemy = arcade.SpriteList()
         self.all_sprites = arcade.SpriteList()
         self.player = Player()
         self.health = 99
         self.damage = 1
+        self.frame_count = 0
 
     def setup(self):
         """Get the game ready to play
@@ -72,7 +74,6 @@ class ZeldaGame(arcade.Window):
         self.background_music = arcade.load_sound(
             "cse210-student-team-challenges/final-project/sounds/Apoxode_-_Electric_1.wav"
         )
-
 
         # Play the background music and schedule the loop
         self.play_background_music()
@@ -144,10 +145,7 @@ class ZeldaGame(arcade.Window):
             missile = Weapon("cse210-student-team-challenges/final-project/images/arrow_right.png", SCALING)
             shoot = Shooter(ShootRight())
             shoot.do_shoot(self.player, missile, self.missile_list, self.all_sprites)
-            
-
-            
-        
+                  
 
     def on_key_release(self, symbol: int, modifiers: int):
         """Undo movement vectors when movement keys are released
@@ -179,6 +177,26 @@ class ZeldaGame(arcade.Window):
 
         self.player.update()
 
+        self.frame_count += 1
+
+        if self.frame_count % 15 == 0:
+            for i in self.rooms_list[self.current_room].list_of_enemies:
+                if i.shoot:
+                    new_shoot = i.enemy_shoot()
+                    if 'ShootDown' in str(new_shoot._Shooter__weapon):
+                        missile = Weapon("cse210-student-team-challenges/final-project/images/fire_down.png", SCALING)
+                        new_shoot.do_shoot(i, missile, self.missile_enemy, self.all_sprites)
+                    if 'ShootUp' in str(new_shoot._Shooter__weapon):
+                        missile = Weapon("cse210-student-team-challenges/final-project/images/fire_top.png", SCALING)
+                        new_shoot.do_shoot(i, missile, self.missile_enemy, self.all_sprites)
+                    if 'ShootRight' in str(new_shoot._Shooter__weapon):
+                        missile = Weapon("cse210-student-team-challenges/final-project/images/fire_right.png", SCALING)
+                        new_shoot.do_shoot(i, missile, self.missile_enemy, self.all_sprites)
+                    if 'ShootLeft' in str(new_shoot._Shooter__weapon):
+                        missile = Weapon("cse210-student-team-challenges/final-project/images/fire_left.png", SCALING)
+                        new_shoot.do_shoot(i, missile, self.missile_enemy, self.all_sprites) 
+
+
         # These lines allow for room transitions
         # self.current_room = transition.transition_between_rooms(self.player, self.current_room)
         self.new_current_room = transition.transition_rooms(self.player, self.current_room, self.new_current_room)
@@ -197,11 +215,16 @@ class ZeldaGame(arcade.Window):
             i.move(velocity, 50)
 
         # Verifies the collision between the player and enemies
-        self.health  = player_collision.player_collides_with_list(self.player, self.rooms_list[self.current_room].list_of_enemies, self.health)
+        self.health = player_collision.player_collides_with_list(self.player, self.rooms_list[self.current_room].list_of_enemies, self.health)
 
         # Verifies if an enemy did collide with a missile
         enemy_collision.enemy_collides_with_missile(self.rooms_list[self.current_room].list_of_enemies, self.missile_list, self.rooms_list[self.current_room], self.damage)
         
+        if player_collision.player_collides_with_list(self.player, self.missile_enemy, self.health):
+            self.health = player_collision.player_collides_with_list(self.player, self.missile_enemy, self.health)
+
+
+
         # This removes all the right boxes if the count of enemies died are the same as the enemy list
         '''
         walls_to_remove_by_room = [
@@ -252,7 +275,8 @@ class ZeldaGame(arcade.Window):
         new_draw = Draw(
             self.rooms_list[self.current_room].list_of_enemies, 
             self.rooms_list[self.current_room].sprite_list, 
-            self.missile_list
+            self.missile_list,
+            self.missile_enemy
         )
         new_draw.on_draw()
         arcade.draw_text(f"Health: {self.health + 1}", 2, 10, arcade.color.YELLOW, 12, bold= True)

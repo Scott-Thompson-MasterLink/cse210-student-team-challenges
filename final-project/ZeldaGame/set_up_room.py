@@ -159,8 +159,8 @@ room2.set_enemies_in_room(2)
 
 
 for room in rrooms[2:-1]:
-    enemy3 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10)
-    enemy4 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10, movement= 1)
+    enemy3 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10, shoot= True, shot_frequency=4)
+    enemy4 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10, movement= 1, shoot=True, shot_frequency=5)
     enemy3.position_enemy(100, 150)
     enemy4.position_enemy(500, 500)
 
