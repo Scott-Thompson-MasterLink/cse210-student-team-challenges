@@ -29,18 +29,18 @@ class Enemy(arcade.Sprite):
         if self.movement == 0:
             self.moving_up = False
 
-            if self.center_x > collide_at and self.moving_left == True:
+            if self.left > collide_at and self.moving_left == True:
                 self.moving_right = False
                 self.center_x -= factor
 
-            if self.center_x < collide_at:
+            if self.left < collide_at:
                 self.moving_right = True
             
             if self.moving_right:
                 self.moving_left = False
                 self.center_x += factor
 
-            if self.center_x > SCREEN_WIDTH - collide_at:
+            if self.right > SCREEN_WIDTH - collide_at:
                 self.moving_left = True
                 self.moving_right = False
                 self.center_x -= factor
@@ -53,17 +53,49 @@ class Enemy(arcade.Sprite):
                 self.moving_down = False
                 self.center_y -= factor
 
-            if self.center_y < collide_at:
+            if self.bottom < collide_at:
                 self.moving_down = True
-            
+
+                
             if self.moving_down:
                 self.moving_up = False
                 self.center_y += factor
 
-            if self.center_y > SCREEN_HEIGHT - collide_at:
+            if self.top > SCREEN_HEIGHT - collide_at:
                 self.moving_up = True
                 self.moving_down = False
                 self.center_y -= factor
+
+        elif self.movement == 3:
+            self.moving_up = False
+
+            if self.left > collide_at and self.moving_left == True:
+                self.moving_right = False
+                self.center_x -= factor
+
+            if self.left < collide_at:
+                self.moving_down = True
+
+            if self.moving_down:
+                self.moving_left = False
+                self.center_y -= factor
+
+            if self.top > SCREEN_HEIGHT - collide_at:
+                self.moving_left = False
+                self.moving_down = False
+                self.center_x -= factor
+
+            if self.right > SCREEN_WIDTH - collide_at:
+                self.moving_up = True
+                self.moving_right = False
+                self.center_y += factor
+
+            if self.bottom < collide_at:
+                self.moving_right = True
+                self.moving_down = False
+                self.center_x += factor
+
+
             
     def draw_health_number(self):
         """ Draw how many hit points we have """

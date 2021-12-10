@@ -187,7 +187,7 @@ class ZeldaGame(arcade.Window):
         # Updates the velocity of the enemies
         for i in self.rooms_list[self.current_room].list_of_enemies:
             velocity = 4 * i.velocity 
-            i.move(velocity, 100)
+            i.move(velocity, 50)
 
         # Verifies the collision between the player and enemies
         self.health  = player_collision.player_collides_with_list(self.player, self.rooms_list[self.current_room].list_of_enemies, self.health)
