@@ -172,65 +172,65 @@ for room in rrooms[2:-1]:
 #Room3
 room3 = rrooms[2]
 
-room3.add_multiple_sprites(path_green_boxes, little_boxes_right)
-# room3.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
-room3.add_multiple_sprites(path_green_boxes, little_boxes_left)
-room3.add_multiple_sprites(path_green_boxes, little_boxes_top)
-room3.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+room3.add_multiple_sprites(path_cyan_boxes, little_boxes_right)
+# room3.add_multiple_sprites(path_cyan_boxes, little_boxes_bottom)
+room3.add_multiple_sprites(path_cyan_boxes, little_boxes_left)
+room3.add_multiple_sprites(path_cyan_boxes, little_boxes_top)
+room3.add_multiple_sprites(path_metal_brown_box, corner_boxes)
 
 #Room4
 room4 = rrooms[3]
 
-room4.add_multiple_sprites(path_green_boxes, little_boxes_right)
-# room4.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
-room4.add_multiple_sprites(path_green_boxes, little_boxes_left)
-room4.add_multiple_sprites(path_green_boxes, little_boxes_top)
-room4.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+room4.add_multiple_sprites(path_red_boxes, little_boxes_right)
+# room4.add_multiple_sprites(path_red_boxes, little_boxes_bottom)
+room4.add_multiple_sprites(path_red_boxes, little_boxes_left)
+room4.add_multiple_sprites(path_red_boxes, little_boxes_top)
+room4.add_multiple_sprites(path_metal_red_box, corner_boxes)
 
 #Room5
 room5 = rrooms[4]
 
-room5.add_multiple_sprites(path_green_boxes, little_boxes_right)
-room5.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
-# room5.add_multiple_sprites(path_green_boxes, little_boxes_left)
-room5.add_multiple_sprites(path_green_boxes, little_boxes_top)
-room5.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+room5.add_multiple_sprites(path_pink_boxes, little_boxes_right)
+room5.add_multiple_sprites(path_pink_boxes, little_boxes_bottom)
+# room5.add_multiple_sprites(path_pink_boxes, little_boxes_left)
+room5.add_multiple_sprites(path_pink_boxes, little_boxes_top)
+room5.add_multiple_sprites(path_metal_black_box, corner_boxes)
 
 #Room6
 room6 = rrooms[5]
 
-room6.add_multiple_sprites(path_green_boxes, little_boxes_right)
-room6.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
-# room6.add_multiple_sprites(path_green_boxes, little_boxes_left)
-room6.add_multiple_sprites(path_green_boxes, little_boxes_top)
-room6.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+room6.add_multiple_sprites(path_oranje_boxes, little_boxes_right)
+room6.add_multiple_sprites(path_oranje_boxes, little_boxes_bottom)
+# room6.add_multiple_sprites(path_oranje_boxes, little_boxes_left)
+room6.add_multiple_sprites(path_oranje_boxes, little_boxes_top)
+room6.add_multiple_sprites(path_metal_cyan_box, corner_boxes)
 
 #Room7
 room7 = rrooms[6]
 
-room7.add_multiple_sprites(path_green_boxes, little_boxes_right)
-room7.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
-room7.add_multiple_sprites(path_green_boxes, little_boxes_left)
-# room7.add_multiple_sprites(path_green_boxes, little_boxes_top)
-room7.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+room7.add_multiple_sprites(path_cyan_boxes, little_boxes_right)
+room7.add_multiple_sprites(path_cyan_boxes, little_boxes_bottom)
+room7.add_multiple_sprites(path_cyan_boxes, little_boxes_left)
+# room7.add_multiple_sprites(path_cyan_boxes, little_boxes_top)
+room7.add_multiple_sprites(path_metal_red_box2, corner_boxes)
 
 #Room8
 room8 = rrooms[7]
 
-room8.add_multiple_sprites(path_green_boxes, little_boxes_right)
-# room8.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
-room8.add_multiple_sprites(path_green_boxes, little_boxes_left)
-room8.add_multiple_sprites(path_green_boxes, little_boxes_top)
-room8.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+room8.add_multiple_sprites(path_blue_boxes, little_boxes_right)
+# room8.add_multiple_sprites(path_blue_boxes, little_boxes_bottom)
+room8.add_multiple_sprites(path_blue_boxes, little_boxes_left)
+room8.add_multiple_sprites(path_blue_boxes, little_boxes_top)
+room8.add_multiple_sprites(path_metal_brown_box, corner_boxes)
 
 #Room9
 room9 = rrooms[8]
 
-room9.add_multiple_sprites(path_green_boxes, little_boxes_right)
-room9.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
-# room9.add_multiple_sprites(path_green_boxes, little_boxes_left)
-room9.add_multiple_sprites(path_green_boxes, little_boxes_top)
-room9.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+room9.add_multiple_sprites(path_red_boxes, little_boxes_right)
+room9.add_multiple_sprites(path_red_boxes, little_boxes_bottom)
+# room9.add_multiple_sprites(path_red_boxes, little_boxes_left)
+room9.add_multiple_sprites(path_red_boxes, little_boxes_top)
+room9.add_multiple_sprites(path_metal_red_box2, corner_boxes)
 
 #Room10
 room10 = rrooms[9]
@@ -239,7 +239,7 @@ room10.add_multiple_sprites(path_green_boxes, little_boxes_right)
 # room10.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
 room10.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room10.add_multiple_sprites(path_green_boxes, little_boxes_top)
-room10.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+room10.add_multiple_sprites(path_metal_red_box, corner_boxes)
 
 
 

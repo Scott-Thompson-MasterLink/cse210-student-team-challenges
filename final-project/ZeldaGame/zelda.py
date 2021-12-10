@@ -224,7 +224,6 @@ class ZeldaGame(arcade.Window):
             self.health = player_collision.player_collides_with_list(self.player, self.missile_enemy, self.health)
 
 
-
         # This removes all the right boxes if the count of enemies died are the same as the enemy list
         '''
         walls_to_remove_by_room = [
