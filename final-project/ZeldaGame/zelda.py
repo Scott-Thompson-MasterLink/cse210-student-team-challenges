@@ -223,6 +223,8 @@ class ZeldaGame(arcade.Window):
         if player_collision.player_collides_with_list(self.player, self.missile_enemy, self.health):
             self.health = player_collision.player_collides_with_list(self.player, self.missile_enemy, self.health)
 
+        #this verifies the collision between player and upgarde weapon
+        self.damage = player_collision.player_collides_with_weapon(self.player,self.rooms_list[self.current_room].list_of_weapons, self.damage)
 
         # This removes all the right boxes if the count of enemies died are the same as the enemy list
         '''
@@ -272,7 +274,8 @@ class ZeldaGame(arcade.Window):
 
         self.player.draw()        
         new_draw = Draw(
-            self.rooms_list[self.current_room].list_of_enemies, 
+            self.rooms_list[self.current_room].list_of_enemies,
+            self.rooms_list[self.current_room].list_of_weapons, 
             self.rooms_list[self.current_room].sprite_list, 
             self.missile_list,
             self.missile_enemy
