@@ -21,5 +21,15 @@ class PlayerCollision:
             return health
         else:
             return health
+    
+    def player_collides_with_weapon(self, player, list, damage):
+        
+        if player.collides_with_list(list):
+        # Loop through each colliding sprite, remove it, and add to the damage.
+        
+            for i in list:
+                i.remove_from_sprite_lists()
+            damage = damage * 2
+        return damage
 
 player_collision = PlayerCollision()
