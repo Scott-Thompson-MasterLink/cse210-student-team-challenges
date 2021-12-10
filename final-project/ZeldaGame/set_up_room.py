@@ -1,9 +1,11 @@
+import arcade
 from ZeldaGame.room import Room
 from ZeldaGame.obstacles_lists import *
 from ZeldaGame.enemy import Enemy
-from ZeldaGame.scaling import SPRITE_SCALING
+from ZeldaGame.scaling import *
 from ZeldaGame.paths import *
 from ZeldaGame.room_links import RoomLinks
+from ZeldaGame.weapon import Weapon
 
 # # Room 1
 # room1 = Room(path_room1)
@@ -116,6 +118,11 @@ from ZeldaGame.room_links import RoomLinks
 # room10.add_multiple_sprites(path_metal_violet_box, corner_boxes)
 
 
+def create_weapon(x,y,room):
+    weapon =  arcade.Sprite("cse210-student-team-challenges/final-project/images/arrow.png", SCALING/4)
+    weapon.center_x = x
+    weapon.center_y = y
+    room.list_of_weapons.append(weapon)
 
 
 # Room 1
@@ -133,6 +140,9 @@ enemy2 = Enemy(path_enemy2, SPRITE_SCALING,max_health=2, velocity= 2.5, movement
 enemy2.position_enemy(100, 400)
 enemy.position_enemy(600, 150)
 
+
+create_weapon(300,500,room1)
+
 room1.list_of_enemies.append(enemy)
 room1.list_of_enemies.append(enemy2)
 
@@ -147,8 +157,11 @@ room2.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room2.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room2.add_multiple_sprites(path_metal_violet_box, corner_boxes)
 
-enemy3 = Enemy(path_enemy3, SPRITE_SCALING / 2,max_health=10)
-enemy4 = Enemy(path_enemy3, SPRITE_SCALING / 2,max_health=10, movement= 1)
+create_weapon(100,100,room2)
+
+
+enemy3 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10)
+enemy4 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10, movement= 1)
 enemy3.position_enemy(100, 150)
 enemy4.position_enemy(500, 500)
 
@@ -159,8 +172,8 @@ room2.set_enemies_in_room(2)
 
 
 for room in rrooms[2:-1]:
-    enemy3 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10, shoot= True, shot_frequency=4)
-    enemy4 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10, movement= 1, shoot=True, shot_frequency=5)
+    enemy3 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10)
+    enemy4 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10, movement= 1)
     enemy3.position_enemy(100, 150)
     enemy4.position_enemy(500, 500)
 
@@ -177,6 +190,7 @@ room3.add_multiple_sprites(path_green_boxes, little_boxes_right)
 room3.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room3.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room3.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+create_weapon(100,100,room3)
 
 #Room4
 room4 = rrooms[3]
@@ -186,6 +200,7 @@ room4.add_multiple_sprites(path_green_boxes, little_boxes_right)
 room4.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room4.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room4.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+create_weapon(100,100,room4)
 
 #Room5
 room5 = rrooms[4]
@@ -195,6 +210,7 @@ room5.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
 # room5.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room5.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room5.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+create_weapon(100,100,room5)
 
 #Room6
 room6 = rrooms[5]
@@ -204,6 +220,7 @@ room6.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
 # room6.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room6.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room6.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+create_weapon(100,100,room6)
 
 #Room7
 room7 = rrooms[6]
@@ -213,6 +230,7 @@ room7.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
 room7.add_multiple_sprites(path_green_boxes, little_boxes_left)
 # room7.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room7.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+create_weapon(100,100,room7)
 
 #Room8
 room8 = rrooms[7]
@@ -222,6 +240,7 @@ room8.add_multiple_sprites(path_green_boxes, little_boxes_right)
 room8.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room8.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room8.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+create_weapon(100,100,room8)
 
 #Room9
 room9 = rrooms[8]
@@ -231,6 +250,7 @@ room9.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
 # room9.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room9.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room9.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+create_weapon(100,100,room9)
 
 #Room10
 room10 = rrooms[9]
