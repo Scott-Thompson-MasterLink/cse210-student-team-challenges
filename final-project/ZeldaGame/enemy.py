@@ -101,13 +101,10 @@ class Enemy(arcade.Sprite):
 
     def enemy_shoot(self):
         
-        if self.shoot:
-            new_shot = random.choice(self.shots)
-            new_shot.velocity = 150 * self.shot_frequency
-            shot = Shooter(new_shot)
-            return shot
-        else:
-            return
+        new_shot = random.choice(self.shots)
+        new_shot.velocity = 150 * self.shot_frequency
+        shot = Shooter(new_shot)
+        return shot
             
     def draw_health_number(self):
         """ Draw how many hit points we have """

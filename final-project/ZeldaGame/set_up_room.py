@@ -127,7 +127,7 @@ def create_weapon(x,y,room):
 
 # Room 1
 # rrooms = [Room()]
-rrooms = [Room(f"cse210-student-team-challenges/final-project/images/room{i%5+1}.png") for i in range(10)]
+rrooms = [Room(f"cse210-student-team-challenges/final-project/images/room{i%10+1}.png") for i in range(10)]
 room1 = rrooms[0]
 room1.add_multiple_sprites(path_blue_boxes, little_boxes_right)
 room1.add_multiple_sprites(path_blue_boxes, little_boxes_bottom)
@@ -172,8 +172,8 @@ room2.set_enemies_in_room(2)
 
 
 for room in rrooms[2:-1]:
-    enemy3 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10)
-    enemy4 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10, movement= 1)
+    enemy3 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10, shoot=True, shot_frequency=3)
+    enemy4 = Enemy(path_enemy3, SPRITE_SCALING,max_health=10, movement= 1, shoot=True, shot_frequency=3)
     enemy3.position_enemy(100, 150)
     enemy4.position_enemy(500, 500)
 

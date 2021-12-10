@@ -204,7 +204,6 @@ class ZeldaGame(arcade.Window):
         self.physics_engine = arcade.PhysicsEngineSimple(self.player,
                                                             self.rooms_list[self.current_room].sprite_list)
             
-
         # This line of code prevents player to go through the obstaclees
         self.physics_engine.update()
 
@@ -227,20 +226,6 @@ class ZeldaGame(arcade.Window):
         self.damage = player_collision.player_collides_with_weapon(self.player,self.rooms_list[self.current_room].list_of_weapons, self.damage)
 
         # This removes all the right boxes if the count of enemies died are the same as the enemy list
-        '''
-        walls_to_remove_by_room = [
-            [little_boxes_left],                                            # Walls to remove for room 1
-            [little_boxes_top,little_boxes_right],                          # Walls to remove for room 2
-            [little_boxes_top,little_boxes_right,little_boxes_bottom],      # Walls to remove for room 3
-            [little_boxes_bottom],                                          # Walls to remove for room 4
-            [little_boxes_right,little_boxes_top,little_boxes_left],        # Walls to remove for room 5
-            [little_boxes_bottom,little_boxes_left],                        # Walls to remove for room 6
-            [little_boxes_top],                                             # Walls to remove for room 7
-            [little_boxes_right,little_boxes_top,little_boxes_bottom],      # Walls to remove for room 8
-            [little_boxes_left]                                             # Walls to remove for room 9
-        ]
-        walls_to_remove = walls_to_remove_by_room[self.current_room]
-        '''
         wall_removals = {'left':little_boxes_left,'right':little_boxes_right,'up':little_boxes_top,'down':little_boxes_bottom}
         walls_to_remove = [(link,wall_removals[link]) for link,value in self.new_current_room.links.items() if value is not None]
         # self.rooms_list[self.current_room].remove_walls(walls_to_remove)
