@@ -15,8 +15,7 @@ class PlayerCollision:
                 health -= 1
             # Stop the game and schedule the game close
             else:
-                self.paused = True
-                arcade.schedule(lambda delta_time: arcade.close_window(), 0.5)
+                arcade.schedule(lambda delta_time: arcade.close_window(), 1)
             
             return health
         else:
@@ -31,5 +30,18 @@ class PlayerCollision:
                 i.remove_from_sprite_lists()
             damage = damage * 2
         return damage
+
+    def player_collides_with_health_box(self, player, list, health):
+
+        if health < 50:
+            if player.collides_with_list(list):
+                # Loop through each colliding sprite, remove it, and add to the damage.
+            
+                for i in list:
+                    i.remove_from_sprite_lists()
+                health = 99
+            return health
+        else:
+            return health
 
 player_collision = PlayerCollision()

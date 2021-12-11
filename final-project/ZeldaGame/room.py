@@ -12,6 +12,7 @@ class Room(MainObjects):
         self.__quantity_of_enemies_died = 0
         self.enemies_in_the_room = 2
         self.__list_of_weapons = arcade.SpriteList()
+        self.__list_of_health_box = arcade.SpriteList()
 
     @property
     def room(self):
@@ -28,6 +29,10 @@ class Room(MainObjects):
     @property
     def list_of_weapons(self):
         return self.__list_of_weapons
+
+    @property
+    def list_of_health_box(self):
+        return self.__list_of_health_box
     
     def add_sprite(self, sprite_object):
         sprite = sprite_object

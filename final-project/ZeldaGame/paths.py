@@ -29,5 +29,13 @@ path_oranje_boxes = 'cse210-student-team-challenges/final-project/images/oranjeb
 path_enemy1 = "cse210-student-team-challenges/final-project/images/monster1.png"
 path_enemy2 = "cse210-student-team-challenges/final-project/images/monster3.png"
 path_enemy3 = "cse210-student-team-challenges/final-project/images/monster2.png"
+path_enemy4 = "cse210-student-team-challenges/final-project/images/monster4.png"
+path_enemy5 = "cse210-student-team-challenges/final-project/images/monster5.png"
+path_enemy6 = "cse210-student-team-challenges/final-project/images/monster6.png"
+path_enemy7 = "cse210-student-team-challenges/final-project/images/monster7.png"
+path_enemy8 = "cse210-student-team-challenges/final-project/images/monster8.png"
+path_enemy9 = "cse210-student-team-challenges/final-project/images/monster9.png"
+path_enemy10 = "cse210-student-team-challenges/final-project/images/monster10.png"
+path_enemy11 = "cse210-student-team-challenges/final-project/images/monster11.png"
 
 path_collision_sound = "cse210-student-team-challenges/final-project/sounds/Collision.wav"

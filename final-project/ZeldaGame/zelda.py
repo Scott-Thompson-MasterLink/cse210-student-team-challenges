@@ -179,7 +179,10 @@ class ZeldaGame(arcade.Window):
 
         self.frame_count += 1
 
-        if self.frame_count % 15 == 0:
+        frequency_of_shot = 95
+        ten_plus_room = 10 * self.current_room
+
+        if self.frame_count % (frequency_of_shot - ten_plus_room) == 0:
             for i in self.rooms_list[self.current_room].list_of_enemies:
                 if i.shoot:
                     new_shoot = i.enemy_shoot()
@@ -203,9 +206,15 @@ class ZeldaGame(arcade.Window):
         self.current_room = self.new_current_room.room_id
         self.physics_engine = arcade.PhysicsEngineSimple(self.player,
                                                             self.rooms_list[self.current_room].sprite_list)
+
+        self.health = player_collision.player_collides_with_health_box(self.player, self.rooms_list[self.current_room].list_of_health_box, self.health)
+
+        if self.health > 50:
+                self.new_engine = arcade.PhysicsEngineSimple(self.player, self.rooms_list[self.current_room].list_of_health_box)
             
         # This line of code prevents player to go through the obstaclees
         self.physics_engine.update()
+        self.new_engine.update()
 
 
         # Updates the velocity of the enemies
@@ -224,6 +233,7 @@ class ZeldaGame(arcade.Window):
 
         #this verifies the collision between player and upgarde weapon
         self.damage = player_collision.player_collides_with_weapon(self.player,self.rooms_list[self.current_room].list_of_weapons, self.damage)
+
 
         # This removes all the right boxes if the count of enemies died are the same as the enemy list
         wall_removals = {'left':little_boxes_left,'right':little_boxes_right,'up':little_boxes_top,'down':little_boxes_bottom}
@@ -260,8 +270,8 @@ class ZeldaGame(arcade.Window):
         self.player.draw()        
         new_draw = Draw(
             self.rooms_list[self.current_room].list_of_enemies,
-            self.rooms_list[self.current_room].list_of_weapons, 
-            self.rooms_list[self.current_room].sprite_list, 
+            # self.rooms_list[self.current_room].list_of_weapons, 
+            self.rooms_list[self.current_room].sprite_list,
             self.missile_list,
             self.missile_enemy
         )
@@ -273,6 +283,23 @@ class ZeldaGame(arcade.Window):
             enemy.draw_health_number()
             enemy.draw_health_bar()
 
+        if len(self.rooms_list[9].list_of_enemies) == 0:
+            arcade.draw_text("You WIN!", start_x=400, start_y=300, color=arcade.color.GREEN, font_size=50, bold= True, anchor_x='center', anchor_y='center')
+
+        # if len(self.rooms_list[7].list_of_enemies) == 0:
+        #     self.rooms_list[7].list_of_health_box.draw()
+
+        # if len(self.rooms_list[8].list_of_enemies) == 0:
+        #     # self.rooms_list[8].list_of_health_box.draw()
+        #     self.rooms_list[1].list_of_health_box.draw()
+        #     self.rooms_list[8].list_of_weapons.draw()
+        
+        # if len(self.rooms_list[3].list_of_enemies) == 0:
+        #     self.rooms_list[3].list_of_weapons.draw()
+
+        if self.health < 0:
+            # self.paused = not self.paused
+            arcade.draw_text("Game Over!", start_x=400, start_y=300, color=arcade.color.RED, font_size=50, bold= True, anchor_x='center', anchor_y='center')
 
 if __name__ == "__main__":
     app = ZeldaGame(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
