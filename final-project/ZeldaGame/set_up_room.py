@@ -1,3 +1,4 @@
+from random import randint
 import arcade
 from ZeldaGame.room import Room
 from ZeldaGame.obstacles_lists import *
@@ -6,6 +7,7 @@ from ZeldaGame.scaling import *
 from ZeldaGame.paths import *
 from ZeldaGame.room_links import RoomLinks
 from ZeldaGame.weapon import Weapon
+from ZeldaGame.random_obstacles import *
 
 # # Room 1
 # room1 = Room(path_room1)
@@ -134,6 +136,7 @@ room1.add_multiple_sprites(path_blue_boxes, little_boxes_bottom)
 room1.add_multiple_sprites(path_blue_boxes, little_boxes_left)
 room1.add_multiple_sprites(path_blue_boxes, little_boxes_top)
 room1.add_multiple_sprites(path_metal_boxes, corner_boxes)
+room1.add_multiple_sprites(path_blue_boxes, random_boxes[0])
 
 enemy = Enemy(path_enemy1, SPRITE_SCALING,max_health=1, velocity=2)
 enemy2 = Enemy(path_enemy2, SPRITE_SCALING,max_health=2, velocity= 2.5, movement= 1)
@@ -156,6 +159,7 @@ room2.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
 room2.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room2.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room2.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+room2.add_multiple_sprites(path_blue_boxes, random_boxes[1])
 
 create_weapon(100,100,room2)
 
@@ -190,6 +194,7 @@ room3.add_multiple_sprites(path_cyan_boxes, little_boxes_right)
 room3.add_multiple_sprites(path_cyan_boxes, little_boxes_left)
 room3.add_multiple_sprites(path_cyan_boxes, little_boxes_top)
 room3.add_multiple_sprites(path_metal_brown_box, corner_boxes)
+room3.add_multiple_sprites(path_blue_boxes, random_boxes[2])
 
 #Room4
 room4 = rrooms[3]
@@ -199,6 +204,7 @@ room4.add_multiple_sprites(path_red_boxes, little_boxes_right)
 room4.add_multiple_sprites(path_red_boxes, little_boxes_left)
 room4.add_multiple_sprites(path_red_boxes, little_boxes_top)
 room4.add_multiple_sprites(path_metal_red_box, corner_boxes)
+room4.add_multiple_sprites(path_blue_boxes, random_boxes[3])
 
 #Room5
 room5 = rrooms[4]
@@ -208,6 +214,7 @@ room5.add_multiple_sprites(path_pink_boxes, little_boxes_bottom)
 # room5.add_multiple_sprites(path_pink_boxes, little_boxes_left)
 room5.add_multiple_sprites(path_pink_boxes, little_boxes_top)
 room5.add_multiple_sprites(path_metal_black_box, corner_boxes)
+room5.add_multiple_sprites(path_blue_boxes, random_boxes[4])
 
 #Room6
 room6 = rrooms[5]
@@ -217,6 +224,7 @@ room6.add_multiple_sprites(path_oranje_boxes, little_boxes_bottom)
 # room6.add_multiple_sprites(path_oranje_boxes, little_boxes_left)
 room6.add_multiple_sprites(path_oranje_boxes, little_boxes_top)
 room6.add_multiple_sprites(path_metal_cyan_box, corner_boxes)
+room6.add_multiple_sprites(path_blue_boxes, random_boxes[5])
 
 #Room7
 room7 = rrooms[6]
@@ -226,6 +234,7 @@ room7.add_multiple_sprites(path_cyan_boxes, little_boxes_bottom)
 room7.add_multiple_sprites(path_cyan_boxes, little_boxes_left)
 # room7.add_multiple_sprites(path_cyan_boxes, little_boxes_top)
 room7.add_multiple_sprites(path_metal_red_box2, corner_boxes)
+room7.add_multiple_sprites(path_blue_boxes, random_boxes[6])
 
 #Room8
 room8 = rrooms[7]
@@ -235,6 +244,7 @@ room8.add_multiple_sprites(path_blue_boxes, little_boxes_right)
 room8.add_multiple_sprites(path_blue_boxes, little_boxes_left)
 room8.add_multiple_sprites(path_blue_boxes, little_boxes_top)
 room8.add_multiple_sprites(path_metal_brown_box, corner_boxes)
+room8.add_multiple_sprites(path_blue_boxes, random_boxes[7])
 
 #Room9
 room9 = rrooms[8]
@@ -244,12 +254,13 @@ room9.add_multiple_sprites(path_red_boxes, little_boxes_bottom)
 # room9.add_multiple_sprites(path_red_boxes, little_boxes_left)
 room9.add_multiple_sprites(path_red_boxes, little_boxes_top)
 room9.add_multiple_sprites(path_metal_red_box2, corner_boxes)
+room9.add_multiple_sprites(path_blue_boxes, random_boxes[8])
 
 #Room10
 room10 = rrooms[9]
 
 room10.add_multiple_sprites(path_green_boxes, little_boxes_right)
-# room10.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
+room10.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
 room10.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room10.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room10.add_multiple_sprites(path_metal_red_box, corner_boxes)

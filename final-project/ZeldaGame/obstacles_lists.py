@@ -1,3 +1,5 @@
+from ZeldaGame.random_obstacles import RandomCoordinates
+
 corner_boxes = [
     [1, 1],
     [50, 1],
@@ -102,3 +104,6 @@ little_boxes_right = [
     
 ]
 
+#random room boxes
+
+random_boxes = [RandomCoordinates.gen_ran_coor(i) for i in [5,6,7,7,7,8,8,9,9]]

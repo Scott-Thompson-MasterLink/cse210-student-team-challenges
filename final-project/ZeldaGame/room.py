@@ -36,21 +36,15 @@ class Room(MainObjects):
     def remove_walls(self, list_to_remove, placement:str):
         if self.__quantity_of_enemies_died == self.enemies_in_the_room:
             if placement in {'left','right'}:
-                # if self.__quantity_of_enemies_died == self.enemies_in_the_room:
                 for i in self.__wall_list:
                     if i.left == list_to_remove[0][0]:
                         self.__wall_list.remove(i)
                         i.visible = False
-                # else:
-                #     return
             else:
-                # if self.__quantity_of_enemies_died == self.enemies_in_the_room:
                 for i in self.__wall_list:
                     if i.bottom == list_to_remove[0][1]:
                         self.__wall_list.remove(i)
                         i.visible = False
-                # else:
-                #     return
 
     def add_multiple_sprites(self, path, coordinates_list):
 
