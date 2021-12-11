@@ -33,7 +33,7 @@ class Enemy(arcade.Sprite):
         if self.movement == 0:
             self.moving_up = False
 
-            if self.left > collide_at and self.moving_left == True:
+            if self.center_x > collide_at and self.moving_left == True:
                 self.moving_right = False
                 self.center_x -= factor
 
@@ -73,7 +73,7 @@ class Enemy(arcade.Sprite):
         elif self.movement == 3:
             self.moving_up = False
 
-            if self.left > collide_at and self.moving_left == True:
+            if self.center_x > collide_at and self.moving_left == True:
                 self.moving_right = False
                 self.center_x -= factor
 

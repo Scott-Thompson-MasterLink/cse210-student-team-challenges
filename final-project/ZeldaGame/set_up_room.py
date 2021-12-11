@@ -232,7 +232,7 @@ room9.set_enemies_in_room(11)
 room10 = rrooms[9]
 
 room10.add_multiple_sprites(path_green_boxes, little_boxes_right)
-room10.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
+#room10.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
 room10.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room10.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room10.add_multiple_sprites(path_metal_red_box, corner_boxes)
