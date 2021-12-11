@@ -1,3 +1,4 @@
+from random import randint
 import arcade
 import random
 
@@ -8,6 +9,7 @@ from ZeldaGame.scaling import *
 from ZeldaGame.paths import *
 from ZeldaGame.room_links import RoomLinks
 from ZeldaGame.weapon import Weapon
+from ZeldaGame.random_obstacles import *
 
 
 def create_weapon(x,y,room):
@@ -42,6 +44,7 @@ room1.add_multiple_sprites(path_blue_boxes, little_boxes_bottom)
 room1.add_multiple_sprites(path_blue_boxes, little_boxes_left)
 room1.add_multiple_sprites(path_blue_boxes, little_boxes_top)
 room1.add_multiple_sprites(path_metal_boxes, corner_boxes)
+room1.add_multiple_sprites(path_blue_boxes, random_boxes[0])
 
 create_enemy(room1, path_enemy1, velocity=2, up_down_around=0, health=1)
 create_enemy(room1, path_enemy2,velocity=6, up_down_around=1, health=1)
@@ -59,6 +62,7 @@ room2.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
 room2.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room2.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room2.add_multiple_sprites(path_metal_violet_box, corner_boxes)
+room2.add_multiple_sprites(path_blue_boxes, random_boxes[1])
 
 
 create_enemy(room2, path_enemy1, velocity=2, up_down_around=0, health=1)
@@ -77,6 +81,7 @@ room3.add_multiple_sprites(path_cyan_boxes, little_boxes_right)
 room3.add_multiple_sprites(path_cyan_boxes, little_boxes_left)
 room3.add_multiple_sprites(path_cyan_boxes, little_boxes_top)
 room3.add_multiple_sprites(path_metal_brown_box, corner_boxes)
+room3.add_multiple_sprites(path_blue_boxes, random_boxes[2])
 
 create_enemy(room3, path_enemy4, velocity=2, up_down_around=0, health=1)
 create_enemy(room3, path_enemy4,velocity=6, up_down_around=1, health=1)
@@ -92,6 +97,7 @@ room4.add_multiple_sprites(path_red_boxes, little_boxes_right)
 room4.add_multiple_sprites(path_red_boxes, little_boxes_left)
 room4.add_multiple_sprites(path_red_boxes, little_boxes_top)
 room4.add_multiple_sprites(path_metal_red_box, corner_boxes)
+room4.add_multiple_sprites(path_blue_boxes, random_boxes[3])
 
 create_enemy(room4, path_enemy5, velocity=2, up_down_around=0, health=1)
 create_enemy(room4, path_enemy6,velocity=6, up_down_around=1, health=1)
@@ -109,6 +115,7 @@ room5.add_multiple_sprites(path_pink_boxes, little_boxes_bottom)
 # room5.add_multiple_sprites(path_pink_boxes, little_boxes_left)
 room5.add_multiple_sprites(path_pink_boxes, little_boxes_top)
 room5.add_multiple_sprites(path_metal_black_box, corner_boxes)
+room5.add_multiple_sprites(path_blue_boxes, random_boxes[4])
 
 create_enemy(room5, path_enemy6, velocity=2, up_down_around=0, health=1)
 create_enemy(room5, path_enemy1,velocity=2, up_down_around=1, health=1)
@@ -130,6 +137,7 @@ room6.add_multiple_sprites(path_oranje_boxes, little_boxes_bottom)
 # room6.add_multiple_sprites(path_oranje_boxes, little_boxes_left)
 room6.add_multiple_sprites(path_oranje_boxes, little_boxes_top)
 room6.add_multiple_sprites(path_metal_cyan_box, corner_boxes)
+room6.add_multiple_sprites(path_blue_boxes, random_boxes[5])
 
 create_enemy(room6, path_enemy1, velocity=2, up_down_around=0, health=1)
 create_enemy(room6, path_enemy2,velocity=2, up_down_around=1, health=1)
@@ -151,6 +159,7 @@ room7.add_multiple_sprites(path_cyan_boxes, little_boxes_bottom)
 room7.add_multiple_sprites(path_cyan_boxes, little_boxes_left)
 # room7.add_multiple_sprites(path_cyan_boxes, little_boxes_top)
 room7.add_multiple_sprites(path_metal_red_box2, corner_boxes)
+room7.add_multiple_sprites(path_blue_boxes, random_boxes[6])
 
 create_enemy(room7, path_enemy7, velocity=3, up_down_around=0, health=1)
 create_enemy(room7, path_enemy7,velocity=3, up_down_around=1, health=1)
@@ -175,6 +184,7 @@ room8.add_multiple_sprites(path_blue_boxes, little_boxes_right)
 room8.add_multiple_sprites(path_blue_boxes, little_boxes_left)
 room8.add_multiple_sprites(path_blue_boxes, little_boxes_top)
 room8.add_multiple_sprites(path_metal_brown_box, corner_boxes)
+room8.add_multiple_sprites(path_blue_boxes, random_boxes[7])
 
 create_enemy(room8, path_enemy8, velocity=3, up_down_around=0, health=1)
 create_enemy(room8, path_enemy8, velocity=3, up_down_around=0, health=1)
@@ -199,6 +209,7 @@ room9.add_multiple_sprites(path_red_boxes, little_boxes_bottom)
 # room9.add_multiple_sprites(path_red_boxes, little_boxes_left)
 room9.add_multiple_sprites(path_red_boxes, little_boxes_top)
 room9.add_multiple_sprites(path_metal_red_box2, corner_boxes)
+room9.add_multiple_sprites(path_blue_boxes, random_boxes[8])
 
 create_enemy(room9, path_enemy6, velocity=3, up_down_around=0, health=1)
 create_enemy(room9, path_enemy8, velocity=3, up_down_around=0, health=1)
@@ -221,7 +232,7 @@ room9.set_enemies_in_room(11)
 room10 = rrooms[9]
 
 room10.add_multiple_sprites(path_green_boxes, little_boxes_right)
-# room10.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
+room10.add_multiple_sprites(path_green_boxes, little_boxes_bottom)
 room10.add_multiple_sprites(path_green_boxes, little_boxes_left)
 room10.add_multiple_sprites(path_green_boxes, little_boxes_top)
 room10.add_multiple_sprites(path_metal_red_box, corner_boxes)
