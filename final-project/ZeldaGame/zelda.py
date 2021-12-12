@@ -30,6 +30,8 @@ class ZeldaGame(arcade.Window):
 
         super().__init__(width, height, title)
 
+        self.start_game = False
+
         self.enemies_list = arcade.SpriteList()
         self.rooms_list = []
         self.current_room = 0
@@ -96,6 +98,9 @@ class ZeldaGame(arcade.Window):
             symbol {int} -- Which key was pressed
             modifiers {int} -- Which modifiers were pressed
         """
+
+        if symbol == arcade.key.ENTER:
+            self.start_game = True
 
         if symbol == arcade.key.ESCAPE:
             # Quit immediately
@@ -174,7 +179,8 @@ class ZeldaGame(arcade.Window):
         """
         if self.paused:
             return
-
+        elif not self.start_game:
+            return
         self.player.update()
 
         self.frame_count += 1
@@ -256,57 +262,64 @@ class ZeldaGame(arcade.Window):
         """
         arcade.start_render()
 
-        arcade.draw_lrwh_rectangle_textured(0, 0,
-                                            SCREEN_WIDTH, SCREEN_HEIGHT,
-                                             self.rooms_list[self.current_room].background)
 
         # self.rooms_list[self.current_room].sprite_list.draw()
         
 
         try:
-
-            self.player.draw()        
-            new_draw = Draw(
-                self.rooms_list[self.current_room].list_of_enemies,
-                # self.rooms_list[self.current_room].list_of_weapons, 
-                self.rooms_list[self.current_room].sprite_list,
-                self.missile_list,
-                self.missile_enemy
-            )
-            new_draw.on_draw()
-            arcade.draw_text(f"Health: {self.health + 1}", 2, 10, arcade.color.YELLOW, 12, bold= True)
             
-            for enemy in self.rooms_list[self.current_room].list_of_enemies:
-                enemy.draw_health_number()
-                enemy.draw_health_bar()
+            if not self.start_game:
+                arcade.draw_lrwh_rectangle_textured(0, 0,
+                                                    SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                    self.rooms_list[self.current_room].background)
 
-            if len(self.rooms_list[9].list_of_enemies) == 0:
-                arcade.draw_text("You WIN!", start_x=400, start_y=300, color=arcade.color.GREEN, font_size=50, bold= True, anchor_x='center', anchor_y='center')
+            elif self.start_game:
 
-            if len(self.rooms_list[0].list_of_enemies) == 0 and self.current_room == 0:
-                self.rooms_list[self.current_room].list_of_weapons.draw()
+                arcade.draw_lrwh_rectangle_textured(0, 0,
+                                                    SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                    self.rooms_list[self.current_room].background)
+                self.player.draw()        
+                new_draw = Draw(
+                    self.rooms_list[self.current_room].list_of_enemies,
+                    # self.rooms_list[self.current_room].list_of_weapons, 
+                    self.rooms_list[self.current_room].sprite_list,
+                    self.missile_list,
+                    self.missile_enemy
+                )
+                new_draw.on_draw()
+                arcade.draw_text(f"Health: {self.health + 1}", 2, 10, arcade.color.YELLOW, 12, bold= True)
+                
+                for enemy in self.rooms_list[self.current_room].list_of_enemies:
+                    enemy.draw_health_number()
+                    enemy.draw_health_bar()
 
-            if len(self.rooms_list[6].list_of_enemies) == 0 and self.current_room == 7:
-                self.rooms_list[self.current_room].list_of_health_box.draw()
-            
-            if len(self.rooms_list[6].list_of_enemies) == 0 and self.current_room == 6:
-                self.rooms_list[self.current_room].list_of_weapons.draw()
+                if len(self.rooms_list[9].list_of_enemies) == 0:
+                    arcade.draw_text("You WIN!", start_x=400, start_y=300, color=arcade.color.GREEN, font_size=50, bold= True, anchor_x='center', anchor_y='center')
 
-            if len(self.rooms_list[8].list_of_enemies) == 0 and self.current_room == 8:
-                self.rooms_list[self.current_room].list_of_health_box.draw()
-                self.rooms_list[self.current_room].list_of_weapons.draw()
+                if len(self.rooms_list[0].list_of_enemies) == 0 and self.current_room == 0:
+                    self.rooms_list[self.current_room].list_of_weapons.draw()
 
-            if len(self.rooms_list[8].list_of_enemies) == 0 and self.current_room == 1:
-                self.rooms_list[self.current_room].list_of_health_box.draw()
+                if len(self.rooms_list[6].list_of_enemies) == 0 and self.current_room == 7:
+                    self.rooms_list[self.current_room].list_of_health_box.draw()
+                
+                if len(self.rooms_list[6].list_of_enemies) == 0 and self.current_room == 6:
+                    self.rooms_list[self.current_room].list_of_weapons.draw()
 
-            if len(self.rooms_list[3].list_of_enemies) == 0 and self.current_room == 3:
-                self.rooms_list[self.current_room].list_of_weapons.draw()
+                if len(self.rooms_list[8].list_of_enemies) == 0 and self.current_room == 8:
+                    self.rooms_list[self.current_room].list_of_health_box.draw()
+                    self.rooms_list[self.current_room].list_of_weapons.draw()
 
-            if self.health < 0:
-                # self.paused = not self.paused
-                arcade.draw_text("Game Over!", start_x=400, start_y=300, color=arcade.color.RED, font_size=50, bold= True, anchor_x='center', anchor_y='center')
-            else:
-                arcade.draw_text(f"Room: {self.current_room + 1}", 720, 10, arcade.color.GREEN_YELLOW, 12, bold= True)
+                if len(self.rooms_list[8].list_of_enemies) == 0 and self.current_room == 1:
+                    self.rooms_list[self.current_room].list_of_health_box.draw()
+
+                if len(self.rooms_list[3].list_of_enemies) == 0 and self.current_room == 3:
+                    self.rooms_list[self.current_room].list_of_weapons.draw()
+
+                if self.health < 0:
+                    # self.paused = not self.paused
+                    arcade.draw_text("Game Over!", start_x=400, start_y=300, color=arcade.color.RED, font_size=50, bold= True, anchor_x='center', anchor_y='center')
+                else:
+                    arcade.draw_text(f"Room: {self.current_room + 1}", 720, 10, arcade.color.GREEN_YELLOW, 12, bold= True)
         except:
             self.on_draw()
 
