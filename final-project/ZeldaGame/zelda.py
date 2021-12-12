@@ -269,9 +269,8 @@ class ZeldaGame(arcade.Window):
         try:
             
             if not self.start_game:
-                arcade.draw_lrwh_rectangle_textured(0, 0,
-                                                    SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                    self.rooms_list[self.current_room].background)
+                instructions = arcade.load_texture("cse210-student-team-challenges/final-project/images/instructions.png")
+                arcade.draw_lrwh_rectangle_textured(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, instructions)
 
             elif self.start_game:
 

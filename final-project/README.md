@@ -7,4 +7,7 @@
 
 ## Authors
 ---
-Scott Thompson: Scottathompson98@gmail.com
+Nathan Muller - nmuller005@gmail.com 
+Matias Rodriguez - maturod96@gmail.com 
+Gilles Mambou - gillesravelmambou@gmail.com 
+Scott Thompson - scottathompson@gmail.com
